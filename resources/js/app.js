@@ -4,22 +4,20 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require("./bootstrap");
+require('./bootstrap')
 
-window.Vue = require("vue");
+window.Vue = require('vue')
 
 // Tailwind
 // import VueTailwind from 'vue-tailwind'
 // Vue.use(VueTailwind)
 
-
-
 // Fontawesome
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {faUser, faUserSecret} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-library.add(faUser);
-Vue.component("font-awesome-icon", FontAwesomeIcon);
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUser, faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+library.add(faUser)
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 /**
  * The following block of code may be used to automatically register your
@@ -32,14 +30,11 @@ Vue.component("font-awesome-icon", FontAwesomeIcon);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component(
-    "example-component",
-    require("./components/ExampleComponent.vue").default
-);
+Vue.component('example-component', require('./components/ExampleComponent.vue').default)
 
 // Test Typescript
-const helloWorld = require("./helper/hello-world").helloWorld();
-console.log(helloWorld);
+const helloWorld = require('./helper/hello-world').helloWorld()
+console.log(helloWorld)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -48,5 +43,5 @@ console.log(helloWorld);
  */
 
 const app = new Vue({
-    el: "#app"
-});
+  el: '#app',
+})

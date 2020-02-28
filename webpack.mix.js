@@ -13,26 +13,27 @@ const tailWindCss = require('tailwindcss');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css')
-    .options({
-        processCssUrls: false,
-        postCss: [ tailWindCss('./tailwind.config.js') ],
-    })
-    .webpackConfig({
-        module: {
-            rules: [
-                {
-                    test: /\.tsx?$/,
-                    loader: "ts-loader",
-                    exclude: /node_modules/
-                }
-            ]
+mix
+  .js('resources/js/app.js', 'public/js')
+  .sass('resources/sass/app.scss', 'public/css')
+  .options({
+    processCssUrls: false,
+    postCss: [tailWindCss('./tailwind.config.js')],
+  })
+  .webpackConfig({
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          loader: 'ts-loader',
+          exclude: /node_modules/,
         },
-        resolve: {
-            extensions: ["*", ".js", ".jsx", ".vue", ".ts", ".tsx"]
-        }
-    });
+      ],
+    },
+    resolve: {
+      extensions: ['*', '.js', '.jsx', '.vue', '.ts', '.tsx'],
+    },
+  })
 
 mix.browserSync('a-nicer-way.test');
 

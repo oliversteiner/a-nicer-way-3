@@ -3,7 +3,7 @@ import Component from 'vue-class-component'
 
 @Component
 export default class ExampleComponent extends Vue {
-    mounted() {
-        console.log('Component mounted.')
-    }
+  public mounted(): void {
+    console.log('Component mounted.')
+  }
 }
