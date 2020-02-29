@@ -4,9 +4,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap')
+import vue from "vue"
 
-window.Vue = require('vue')
+require('../../js/bootstrap')
+import {Vue} from "vue-property-decorator"
+
+window.Vue = vue
 
 // Tailwind
 // import VueTailwind from 'vue-tailwind'
@@ -16,6 +19,7 @@ window.Vue = require('vue')
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUser, faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 library.add(faUser)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
@@ -30,11 +34,11 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default)
+Vue.component('example-component', require('@/components/ExampleComponent/ExampleComponent').default)
 
 // Test Typescript
-const helloWorld = require('./helper/hello-world').helloWorld()
-console.log(helloWorld)
+const helloWorld2 = require('../../js/helper/helloWorld2').default
+console.log(helloWorld2)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -57,3 +57,5 @@ npm install
    `npm install -g browser-sync`
 
 ## Run Tests
+https://tighten.co/blog/its-time-to-start-testing-your-vue-components-getting-started-with-jest
+https://dev.to/nesterow/testable-code-with-vuejs-and-typescript-4eeb

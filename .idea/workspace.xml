@@ -2,16 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5998cbed-6909-47f9-9477-e11c55b6aee6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.prettierrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.babelrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/assets/vue/components/HelloWorld/HelloWorld.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/assets/vue/components/HelloWorld/_HelloWorld.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/assets/vue/components/NewCom.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/helper/helloWorld2.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setupTests.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/vue/ExampleComponent.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/vue/HelloWorld.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/vue/NewCom.spec.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/vue/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/vue/components/ExampleComponent/ExampleComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/ExampleComponent.vue.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/helper/hello-world.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/assets/sass/app.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +38,17 @@
     <execution>
       <executable />
     </execution>
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="490" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="Vue Single File Component TS-SCSS" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -133,31 +158,99 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tests/Vue" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.standard" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.standard" value="" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="/usr/local/lib/node_modules/prettier" />
-    <property name="settings.editor.selected.configurable" value="settings.javascript.linters.eslint" />
-    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests/Vue" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources/js" />
+      <recent name="$PROJECT_DIR$/resources/assets" />
+      <recent name="$PROJECT_DIR$/tests/Vue" />
+      <recent name="$PROJECT_DIR$/resources/vue/components/HelloWorld" />
+      <recent name="$PROJECT_DIR$/resources/vue" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Jest.All Tests">
+    <configuration name="All Tests" type="JavaScriptTestRunnerJest" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <jest-options value="--no-cache" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration name="All Tests" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <jest-options value="--no-cache" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method v="2" />
+    </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
     </configuration>
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="test" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Jest.All Tests" />
+      <item itemvalue="PHPUnit.phpunit.xml" />
+      <item itemvalue="npm.dev" />
+      <item itemvalue="npm.test" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.test" />
+        <item itemvalue="npm.dev" />
+        <item itemvalue="Jest.All Tests" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -183,7 +276,7 @@
       <updated>1582885523478</updated>
       <workItem from="1582885524859" duration="1758000" />
       <workItem from="1582887311003" duration="24000" />
-      <workItem from="1582887352290" duration="17468000" />
+      <workItem from="1582887352290" duration="45769000" />
     </task>
     <task id="LOCAL-00001" summary="Update App Name">
       <created>1582913396868</created>
@@ -199,15 +292,32 @@
       <option name="project" value="LOCAL" />
       <updated>1582913598661</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add eslint and prettier">
+      <created>1582916573828</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1582916573828</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add eslint and prettier">
+      <created>1582916603678</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1582916603678</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Update App Name" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update App Name" />
+    <MESSAGE value="Add eslint and prettier" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add eslint and prettier" />
   </component>
   <component name="WindowStateProjectService">
     <state x="898" y="397" key="#ESLint" timestamp="1582915439520">
@@ -218,45 +328,73 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="898" y="397" key="#Plugins/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582887284948" />
-    <state x="909" y="334" key="CommitChangelistDialog2" timestamp="1582916573594">
+    <state x="1246" y="140" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582942599500">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state x="909" y="334" key="CommitChangelistDialog2/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582916573594" />
-    <state width="1239" height="408" key="GridCell.Tab.0.bottom" timestamp="1582916072778">
+    <state x="1246" y="140" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582942599500" />
+    <state x="909" y="334" key="CommitChangelistDialog2" timestamp="1582916603558">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state width="1239" height="408" key="GridCell.Tab.0.bottom/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582916072778" />
-    <state width="1239" height="408" key="GridCell.Tab.0.center" timestamp="1582916072778">
+    <state x="909" y="334" key="CommitChangelistDialog2/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582916603558" />
+    <state width="2488" height="408" key="GridCell.Tab.0.bottom" timestamp="1582969263909">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state width="1239" height="408" key="GridCell.Tab.0.center/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582916072778" />
-    <state width="1239" height="408" key="GridCell.Tab.0.left" timestamp="1582916072777">
+    <state width="2488" height="408" key="GridCell.Tab.0.bottom/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582969263909" />
+    <state width="2488" height="408" key="GridCell.Tab.0.center" timestamp="1582969263908">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state width="1239" height="408" key="GridCell.Tab.0.left/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582916072777" />
-    <state width="1239" height="408" key="GridCell.Tab.0.right" timestamp="1582916072778">
+    <state width="2488" height="408" key="GridCell.Tab.0.center/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582969263908" />
+    <state width="2488" height="408" key="GridCell.Tab.0.left" timestamp="1582969263908">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state width="1239" height="408" key="GridCell.Tab.0.right/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582916072778" />
-    <state x="807" y="370" key="SettingsEditor" timestamp="1582914163536">
+    <state width="2488" height="408" key="GridCell.Tab.0.left/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582969263908" />
+    <state width="2488" height="408" key="GridCell.Tab.0.right" timestamp="1582969263909">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state x="807" y="370" key="SettingsEditor/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582914163536" />
+    <state width="2488" height="408" key="GridCell.Tab.0.right/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582969263909" />
+    <state width="2488" height="501" key="GridCell.Tab.1.bottom" timestamp="1582967775975">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state width="2488" height="501" key="GridCell.Tab.1.bottom/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582967775975" />
+    <state width="2488" height="501" key="GridCell.Tab.1.center" timestamp="1582967775974">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state width="2488" height="501" key="GridCell.Tab.1.center/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582967775974" />
+    <state width="2488" height="501" key="GridCell.Tab.1.left" timestamp="1582967775974">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state width="2488" height="501" key="GridCell.Tab.1.left/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582967775974" />
+    <state width="2488" height="501" key="GridCell.Tab.1.right" timestamp="1582967775975">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state width="2488" height="501" key="GridCell.Tab.1.right/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582967775975" />
+    <state x="807" y="370" key="SettingsEditor" timestamp="1582917734508">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="807" y="370" key="SettingsEditor/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582917734508" />
     <state x="898" y="471" key="Vcs.Push.Dialog.v2" timestamp="1582916582878">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="898" y="471" key="Vcs.Push.Dialog.v2/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582916582878" />
-    <state x="137" y="123" width="2323" height="1217" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1582891633720">
+    <state x="137" y="123" width="2323" height="1217" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1582941899554">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state x="137" y="123" width="2323" height="1217" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582891633720" />
+    <state x="137" y="123" width="2323" height="1217" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582941899554" />
     <state x="979" y="488" width="782" height="550" key="find.popup" timestamp="1582913317986">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="979" y="488" width="782" height="550" key="find.popup/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582913317986" />
-    <state width="300" height="111" key="javadoc.popup.new" timestamp="1582901242240">
+    <state width="300" height="111" key="javadoc.popup.new" timestamp="1582968948248">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state width="300" height="111" key="javadoc.popup.new/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582901242240" />
+    <state width="300" height="111" key="javadoc.popup.new/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582968948248" />
+    <state x="960" y="348" key="search.everywhere.popup" timestamp="1582968917132">
+      <screen x="0" y="23" width="2560" height="1417" />
+    </state>
+    <state x="960" y="348" key="search.everywhere.popup/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582968917132" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/a_nicer_way$All_Tests.info" NAME="All Tests Coverage Results" MODIFIED="1582935869892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/a_nicer_way$Rerun_Failed_Tests.info" NAME="Rerun Failed Tests Coverage Results" MODIFIED="1582935937110" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
