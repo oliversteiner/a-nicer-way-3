@@ -3,7 +3,6 @@ module.exports = {
   env: {
     node: true,
   },
-  // parser: "@typescript-eslint/parser", // Specifies the ESLint parser
   extends: [
     'prettier',
     'plugin:@typescript-eslint/recommended',
@@ -25,8 +24,13 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
   },
-  overrides: {
-    files: ['*.ts'],
-    //  parser: "@typescript-eslint/parser"
+  overrides:       {
+      "files": [
+          "**/tests/*.{j,t}s?(x)",
+          "**/tests/**/*.spec.{j,t}s?(x)"
+      ],
+      "env": {
+          "jest": true
+      }
   },
 }
