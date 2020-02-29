@@ -18,3 +18,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// For public application
+Route::any('/presentation{any}', 'PresentationController@show')->where('any', '^(?!api).*$');

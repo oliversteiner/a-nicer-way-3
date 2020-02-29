@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5998cbed-6909-47f9-9477-e11c55b6aee6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.env.testting" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/typings.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/PresentationController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/presentation/vue.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/presentation.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/vue/HelloWorld.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/vue/HelloWorld.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.mix.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +139,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -158,15 +154,16 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/tests/Vue" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/presentation" />
       <recent name="$PROJECT_DIR$/resources/assets" />
       <recent name="$PROJECT_DIR$/tests/Vue" />
       <recent name="$PROJECT_DIR$/resources/vue/components/HelloWorld" />
       <recent name="$PROJECT_DIR$/resources/vue" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="Jest.All Tests">
@@ -225,9 +222,9 @@
     </configuration>
     <list>
       <item itemvalue="Jest.All Tests" />
-      <item itemvalue="PHPUnit.phpunit.xml" />
       <item itemvalue="npm.dev" />
       <item itemvalue="npm.test" />
+      <item itemvalue="PHPUnit.phpunit.xml" />
     </list>
     <recent_temporary>
       <list>
@@ -261,7 +258,7 @@
       <updated>1582885523478</updated>
       <workItem from="1582885524859" duration="1758000" />
       <workItem from="1582887311003" duration="24000" />
-      <workItem from="1582887352290" duration="49790000" />
+      <workItem from="1582887352290" duration="52518000" />
     </task>
     <task id="LOCAL-00001" summary="Update App Name">
       <created>1582913396868</created>
@@ -298,7 +295,14 @@
       <option name="project" value="LOCAL" />
       <updated>1582969330075</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="test for laravel ok, tests for vue so-la-la">
+      <created>1582974037120</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1582974037120</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,7 +314,8 @@
     <MESSAGE value="Update App Name" />
     <MESSAGE value="Add eslint and prettier" />
     <MESSAGE value="prepare for tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="prepare for tests" />
+    <MESSAGE value="test for laravel ok, tests for vue so-la-la" />
+    <option name="LAST_COMMIT_MESSAGE" value="test for laravel ok, tests for vue so-la-la" />
   </component>
   <component name="WindowStateProjectService">
     <state x="898" y="397" key="#ESLint" timestamp="1582915439520">
@@ -325,10 +330,10 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="1246" y="140" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582942599500" />
-    <state x="909" y="334" key="CommitChangelistDialog2" timestamp="1582969329551">
+    <state x="909" y="334" key="CommitChangelistDialog2" timestamp="1582974036976">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state x="909" y="334" key="CommitChangelistDialog2/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582969329551" />
+    <state x="909" y="334" key="CommitChangelistDialog2/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582974036976" />
     <state width="2488" height="408" key="GridCell.Tab.0.bottom" timestamp="1582971398953">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
@@ -373,18 +378,18 @@
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
     <state x="137" y="123" width="2323" height="1217" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582941899554" />
-    <state x="979" y="488" width="782" height="729" key="find.popup" timestamp="1582971327412">
+    <state x="979" y="488" width="782" height="729" key="find.popup" timestamp="1582975407462">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state x="979" y="488" width="782" height="729" key="find.popup/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582971327412" />
-    <state width="300" height="111" key="javadoc.popup.new" timestamp="1582971076462">
+    <state x="979" y="488" width="782" height="729" key="find.popup/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582975407462" />
+    <state width="300" height="111" key="javadoc.popup.new" timestamp="1582975599859">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state width="300" height="111" key="javadoc.popup.new/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582971076462" />
-    <state x="960" y="348" key="search.everywhere.popup" timestamp="1582968917132">
+    <state width="300" height="111" key="javadoc.popup.new/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582975599859" />
+    <state x="960" y="348" width="670" height="676" key="search.everywhere.popup" timestamp="1582975478532">
       <screen x="0" y="23" width="2560" height="1417" />
     </state>
-    <state x="960" y="348" key="search.everywhere.popup/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582968917132" />
+    <state x="960" y="348" width="670" height="676" key="search.everywhere.popup/0.23.2560.1417/2560.23.1680.1027@0.23.2560.1417" timestamp="1582975478532" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/a_nicer_way$All_Tests.info" NAME="All Tests Coverage Results" MODIFIED="1582935869892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
