@@ -1,62 +1,94 @@
 {
-    "name": "laravel/a-nicer-way-3",
-    "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
-    ],
-    "license": "MIT",
-    "require": {
-        "php": "^7.2",
-        "fideloper/proxy": "^4.0",
-        "laravel/framework": "^6.2",
-        "laravel/tinker": "^2.0"
+  "name": "oliversteiner/a-nicer-way-3",
+  "description": "The Laravel Framework.",
+  "type": "project",
+  "keywords": [
+    "framework",
+    "laravel",
+    "vue",
+    "typescript",
+    "sass",
+    "scss",
+    "jest"
+  ],
+  "authors": [
+    {
+      "name": "Oliver Steiner",
+      "email": "oliver@mollo.ch",
+      "homepage": "https://mollo.ch"
     },
-    "require-dev": {
-        "facade/ignition": "^1.4",
-        "fzaninotto/faker": "^1.9.1",
-        "laravel/ui": "^1.2",
-        "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^3.0",
-        "phpunit/phpunit": "^8.0"
-    },
-    "config": {
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "dont-discover": []
-        }
-    },
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        },
-        "classmap": [
-            "database/seeds",
-            "database/factories"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "scripts": {
-        "post-autoload-dump": [
-            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
-        ],
-        "post-root-package-install": [
-            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-        ],
-        "post-create-project-cmd": [
-            "@php artisan key:generate --ansi"
-        ]
+    {
+      "name": "The Laravel Framework",
+      "homepage": "https://laravel.com"
     }
+  ],
+  "license": "CC0 1.0 Universal",
+  "require": {
+    "php": "^7.2",
+    "fideloper/proxy": "^4.0",
+    "laravel/framework": "^6.2",
+    "laravel/tinker": "^2.0"
+  },
+  "require-dev": {
+    "facade/ignition": "^1.4",
+    "fzaninotto/faker": "^1.9.1",
+    "laravel/ui": "^1.2",
+    "mockery/mockery": "^1.0",
+    "nunomaduro/collision": "^3.0",
+    "phpunit/phpunit": "^8.0"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "dont-discover": []
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    },
+    "classmap": [
+      "database/seeds",
+      "database/factories"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "scripts": {
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi"
+    ],
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+      "@php artisan key:generate --ansi"
+    ],
+    "test": "\"vendor/bin/phpunit\"",
+    "env:copy": "cp .env && cp .env.testing",
+    "key:generate": "php artisan key:generate && php artisan key:generate --env=testing",
+    "jwt:generate": "php artisan jwt:secret && php artisan jwt:secret --env=testing",
+    "permissions": "chgrp -R www-data storage bootstrap/cache && chmod -R ug+rwx storage bootstrap/cache",
+    "start": [
+      "@composer run env:copy",
+      "@composer install -n --prefer-dist",
+      "@composer run key:generate",
+      "@composer run jwt:generate",
+      "@php artisan vue-i18n:generate",
+      "@php artisan migrate --seed",
+      "@composer run permissions",
+      "@composer test"
+    ],
+    "deploy": "envoy run deploy"
+  }
 }

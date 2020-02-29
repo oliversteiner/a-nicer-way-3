@@ -21,6 +21,7 @@ A User Journey Presentation App with Smartphone Simulator
  - vue-tailwind : https://vue-tailwind.com/
  - Laravel : https://laravel.com/
  - Typescript and Laravel: https://sebastiandedeyne.com/typescript-with-laravel-mix/
+ - https://github.com/alefesouza/laravel-vue-boilerplate
 
 ## Server Requirements
  - PHP >= 7.2.0

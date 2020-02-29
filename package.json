@@ -2,6 +2,15 @@
   "name": "a-nicer-way-3",
   "description": "A User Journey Presentation App with Smartphone Simulator",
   "version": "3.0.0a",
+  "keywords": [
+    "framework",
+    "laravel",
+    "vue",
+    "typescript",
+    "sass",
+    "scss",
+    "jest"
+  ],
   "private": true,
   "scripts": {
     "dev": "npm run development",
@@ -81,6 +90,14 @@
     "tailwindcss": "^1.2.0",
     "vue-tailwind": "^0.4.5"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oliversteiner/a-nicer-way-3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oliversteiner/a-nicer-way-3/issues"
+  },
+  "homepage": "https://github.com/oliversteiner/a-nicer-way-3#readme",
   "jest": {
     "globals": {
       "baseUrl": ""

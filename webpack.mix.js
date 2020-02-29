@@ -1,6 +1,6 @@
+const tailWindCss = require('tailwindcss')
 const mix = require('laravel-mix')
 const path = require('path')
-const tailWindCss = require('tailwindcss')
 
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
@@ -18,13 +18,12 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 mix.disableSuccessNotifications()
 
 mix
-  .js('resources/assets/vue/app.ts', 'public/js')
-  .sass('resources/assets/sass/app.scss', 'public/css')
   .options({
     processCssUrls: false,
     postCss: [tailWindCss('./tailwind.config.js')],
   })
-
+  .js('resources/assets/vue/app.ts', 'public/js')
+  .sass('resources/assets/sass/app.scss', 'public/css')
   .webpackConfig({
     output: {
       chunkFilename: mix.inProduction() ? 'js/[name].[chunkhash].js' : 'js/[name].js',
@@ -47,11 +46,6 @@ mix
             appendTsSuffixTo: [/\.vue$/],
           },
           exclude: /node_modules/,
-        },
-        {
-          test: /\.(graphql|gql)$/,
-          loader: 'graphql-tag/loader',
-          exclude: /node_modules/,
         }
       ],
     },
@@ -64,8 +58,6 @@ mix
     },
     plugins: process.env.NODE_ENV != 'ci' ? [new BundleAnalyzerPlugin()] : [],
   })
-
-mix.browserSync('a-nicer-way.test')
 
 // Thanks https://github.com/JeffreyWay/laravel-mix/issues/1483#issuecomment-366685986
 Mix.listen('configReady', webpackConfig => {
@@ -83,4 +75,4 @@ Mix.listen('configReady', webpackConfig => {
   }
 })
 
-
+mix.browserSync('a-nicer-way.test')

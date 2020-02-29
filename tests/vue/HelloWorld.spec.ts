@@ -1,31 +1,31 @@
-import Vue from 'vue';
-import { mount } from '@vue/test-utils';
+import Vue from 'vue'
+import { mount } from '@vue/test-utils'
 
-import faker from 'faker';
+import faker from 'faker'
 
 // import configStore from '../mocks/config-store';
 // import storeMock from '../mocks/store-mock';
 
- import HelloWorld from '@/components/HelloWorld/HelloWorld';
+import HelloWorld from '@/components/HelloWorld/HelloWorld.vue'
 // const HelloWorld = require('@/components/HelloWorld/HelloWorld').default
 
 describe('HelloWorld.vue', () => {
- //   const store = configStore(Vue, storeMock);
+  //   const store = configStore(Vue, storeMock);
 
   it('should render correctly', () => {
     const item = {
       name: faker.name.findName(),
       link: faker.internet.url(),
-    };
+    }
 
     const wrapper = mount(HelloWorld, {
-  //     store,
+      //     store,
       propsData: {
         item,
       },
-    });
+    })
 
-    expect(wrapper.find('.name').text()).toEqual(item.name);
-    expect(wrapper.find('a').element.getAttribute('href')).toEqual(item.link);
-  });
-});
+    expect(wrapper.find('.name').text()).toEqual(item.name)
+    expect(wrapper.find('a').element.getAttribute('href')).toEqual(item.link)
+  })
+})
