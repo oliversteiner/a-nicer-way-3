@@ -27,6 +27,7 @@ Oberflächen zusätzlich im Browser prüfen (`/journeys/demo`). Tests allein rei
 ## Konventionen
 
 - Neuer Code der Präsentation: Komponenten in `resources/js/components/presentation`, Zustand im Pinia-Store `resources/js/stores/presentation.ts`, Typen in `resources/js/types/presentation.ts`.
+- Editor (eingeloggt, `/editor/journeys`): Controller in `app/Http/Controllers/Editor`, Rechte über `JourneyPolicy`/`BoardPolicy` (nur Besitzer), Seiten `resources/js/pages/Journeys`, Bausteine in `resources/js/components/editor`.
 - Icons mit `lucide-vue-next`, Buttons mit `@/components/ui/button`, Farben und Abstände über die Theme-Variablen (keine Farbliterale).
 - Keine lizenzierten Dateien (zum Beispiel Font Awesome Pro) im Repo.
 - Keine Passwörter oder Tokens in Dateien, Commits oder Logs.
@@ -34,4 +35,4 @@ Oberflächen zusätzlich im Browser prüfen (`/journeys/demo`). Tests allein rei
 ## Bekannte Lücken
 
 - `npx vue-tsc --noEmit` scheitert am Starter-Kit (`vue/tsx` in `tsconfig.json`).
-- Nicht portiert aus `anw-presentation`: Board-Liste, Console, Edit-Panel, Timer, Figur-Ebene, Fernsteuerung.
+- Nicht portiert aus `anw-presentation`: Board-Liste, Console, Timer, Figur-Ebene, Bild-Upload für die Parallax-Ebenen, Fernsteuerung.

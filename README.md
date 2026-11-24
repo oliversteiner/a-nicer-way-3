@@ -39,6 +39,8 @@ npm run dev
 
 Open `/journeys/demo`. Use the left and right arrow keys, the arrow buttons or the dots to move between boards.
 
+Log in and open `/editor/journeys` (menu entry «Journeys») to create journeys, add, edit, reorder and delete boards, and publish a journey. Only the owner can edit a journey; drafts are visible to the owner only.
+
 ## Checks
 
 ```bash
@@ -62,7 +64,7 @@ npm run build
 
 ## Not ported yet
 
-Board list, console and edit panels, the timer, the character layer and the remote control from the earlier Vue 2 version (`anw-presentation`).
+Board list and console panels, the timer, the character layer and the image upload for the parallax layers and the remote control from the earlier Vue 2 version (`anw-presentation`).
 
 ## License
 
