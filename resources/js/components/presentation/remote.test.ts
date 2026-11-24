@@ -27,7 +27,7 @@ describe('RemotePanel', () => {
         await flushPromises();
 
         expect(wrapper.get('[data-test=remote-url]').text()).toBe('http://x.test/remote/rt');
-        expect(wrapper.get('[role=img] svg').exists()).toBe(true);
+        expect(wrapper.find('[role=img] svg').exists()).toBe(true);
         expect(wrapper.get('[data-test=remote-status]').text()).toContain('Wartet');
     });
 

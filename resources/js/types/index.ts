@@ -17,6 +17,8 @@ export interface NavItem {
 }
 
 export interface SharedData {
+    // Inertia's usePage<T>() requires an index signature.
+    [key: string]: unknown;
     name: string;
     quote: { message: string; author: string };
     auth: Auth;
