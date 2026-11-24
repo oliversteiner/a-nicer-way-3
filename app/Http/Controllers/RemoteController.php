@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CharacterPose;
 use App\Events\RemoteCommand;
 use App\Events\RemoteState;
 use App\Models\Journey;
@@ -9,6 +10,7 @@ use App\Support\RemoteSession;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response as InertiaResponse;
 
@@ -52,11 +54,13 @@ class RemoteController extends Controller
         abort_if(RemoteSession::find($token) === null, 404);
 
         $data = $request->validate([
-            'action' => ['required', 'in:next,previous,goto,timer-toggle,timer-reset,hello'],
-            'value' => ['required_if:action,goto', 'nullable', 'integer', 'min:1', 'max:1000'],
+            'action' => ['required', 'in:next,previous,goto,timer-toggle,timer-reset,character-select,character-pose,hello'],
+            // A board position for goto, a character id for character-select.
+            'value' => ['required_if:action,goto,character-select', 'nullable', 'integer', 'min:1', 'max:4294967295'],
+            'pose' => ['required_if:action,character-pose', 'nullable', Rule::enum(CharacterPose::class)],
         ]);
 
-        broadcast(new RemoteCommand($token, $data['action'], $data['value'] ?? null));
+        broadcast(new RemoteCommand($token, $data['action'], $data['value'] ?? null, $data['pose'] ?? null));
 
         return response()->noContent();
     }
@@ -76,6 +80,11 @@ class RemoteController extends Controller
             'state.board.day' => ['nullable', 'integer'],
             'state.board.time' => ['nullable', 'string', 'max:8'],
             'state.board.location' => ['nullable', 'string', 'max:255'],
+            'state.characters' => ['present', 'array', 'max:50'],
+            'state.characters.*.id' => ['required', 'integer'],
+            'state.characters.*.name' => ['required', 'string', 'max:100'],
+            'state.character_id' => ['nullable', 'integer'],
+            'state.character_pose' => ['required', Rule::enum(CharacterPose::class)],
             'state.timer' => ['required', 'array'],
             'state.timer.remaining' => ['required', 'integer', 'min:0'],
             'state.timer.total' => ['required', 'integer', 'min:0'],

@@ -49,6 +49,12 @@ export const useRemoteStore = defineStore('remote', () => {
             case 'timer-reset':
                 presentation.timerReset();
                 break;
+            case 'character-select':
+                if (command.value !== null) presentation.selectCharacter(command.value);
+                break;
+            case 'character-pose':
+                if (command.pose) presentation.setPose(command.pose);
+                break;
             case 'hello':
                 connected.value = true;
                 break;

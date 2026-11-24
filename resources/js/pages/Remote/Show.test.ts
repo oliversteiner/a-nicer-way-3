@@ -27,6 +27,12 @@ const state = (overrides: Partial<RemoteState> = {}): RemoteState => ({
     index: 1,
     count: 3,
     board: { position: 2, title: 'Zug', notes: 'Erst Wecker', day: 1, time: '08:00:00', location: 'Bahn' },
+    characters: [
+        { id: 7, name: 'Kevin' },
+        { id: 8, name: 'Bus' },
+    ],
+    character_id: 7,
+    character_pose: 'idle',
     timer: { remaining: 120, total: 300, running: false, nearEnd: false, timeOut: false },
     ...overrides,
 });
@@ -45,7 +51,7 @@ describe('remote control page', () => {
     it('says hello on open and keeps asking until the presentation answers', async () => {
         const wrapper = open();
         await flushPromises();
-        expect(mocks.sendCommand).toHaveBeenCalledWith('rt', 'hello', undefined);
+        expect(mocks.sendCommand).toHaveBeenCalledWith('rt', 'hello', undefined, undefined);
 
         mocks.sendCommand.mockClear();
         await vi.advanceTimersByTimeAsync(4100);
@@ -81,9 +87,9 @@ describe('remote control page', () => {
         await wrapper.get('button[aria-label="Board 3: B3"]').trigger('click');
 
         expect(mocks.sendCommand.mock.calls).toEqual([
-            ['rt', 'next', undefined],
-            ['rt', 'previous', undefined],
-            ['rt', 'goto', 3],
+            ['rt', 'next', undefined, undefined],
+            ['rt', 'previous', undefined, undefined],
+            ['rt', 'goto', 3, undefined],
         ]);
     });
 
@@ -146,5 +152,39 @@ describe('remote control page', () => {
         await command(wrapper, 'Weiter').trigger('click');
         await flushPromises();
         expect(wrapper.get('[role=alert]').text()).toContain('Keine Verbindung');
+    });
+    it('lists the characters and marks the current one and its pose', async () => {
+        const wrapper = open();
+        mocks.onState!(state({ character_id: 8, character_pose: 'go' }));
+        await flushPromises();
+
+        const pressed = (group: string) =>
+            Object.fromEntries(wrapper.findAll(`[aria-label="${group}"] button`).map((b) => [b.text(), b.attributes('aria-pressed')]));
+
+        expect(pressed('Figur wählen')).toEqual({ Kevin: 'false', Bus: 'true' });
+        expect(pressed('Aktion')).toEqual({ Stehen: 'false', Gehen: 'true', Pause: 'false', Grüssen: 'false' });
+    });
+
+    it('selects a character and sets a pose', async () => {
+        const wrapper = open();
+        mocks.onState!(state());
+        await flushPromises();
+        mocks.sendCommand.mockClear();
+
+        await wrapper.findAll('[aria-label="Figur wählen"] button')[1].trigger('click');
+        await wrapper.findAll('[aria-label="Aktion"] button')[3].trigger('click');
+
+        expect(mocks.sendCommand.mock.calls).toEqual([
+            ['rt', 'character-select', 8, undefined],
+            ['rt', 'character-pose', undefined, 'greet'],
+        ]);
+    });
+
+    it('hides the character section when the journey has no characters', async () => {
+        const wrapper = open();
+        mocks.onState!(state({ characters: [], character_id: null }));
+        await flushPromises();
+
+        expect(wrapper.find('[data-test=character]').exists()).toBe(false);
     });
 });

@@ -65,6 +65,7 @@ export const usePresentationStore = defineStore('presentation', () => {
     const timerToggle = () => (countdown.running.value ? countdown.pause() : countdown.start());
 
     // Character layer: which figure is on stage and what it is doing.
+    const characterIds = ref<number[]>([]);
     const characterId = ref<number | null>(null);
     const characterPose = ref<CharacterPose>('idle');
     const GREET_SECONDS = 2.5;
@@ -77,10 +78,13 @@ export const usePresentationStore = defineStore('presentation', () => {
 
     /** Called with the journey's characters: keeps the selection if it still exists, else picks the first. */
     function setCharacters(ids: number[]) {
+        characterIds.value = ids;
         if (characterId.value === null || !ids.includes(characterId.value)) characterId.value = ids[0] ?? null;
     }
 
     function selectCharacter(id: number) {
+        if (!characterIds.value.includes(id)) return;
+
         clearGreetTimer();
         characterId.value = id;
         characterPose.value = 'idle';
@@ -127,6 +131,7 @@ export const usePresentationStore = defineStore('presentation', () => {
 
     return {
         panels,
+        characterIds,
         characterId,
         characterPose,
         setCharacters,
