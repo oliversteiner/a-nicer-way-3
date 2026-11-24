@@ -2,6 +2,7 @@
 import BoardListPanel from '@/components/presentation/BoardListPanel.vue';
 import BoardNav from '@/components/presentation/BoardNav.vue';
 import BoardScroller from '@/components/presentation/BoardScroller.vue';
+import CharacterPanel from '@/components/presentation/CharacterPanel.vue';
 import ConsolePanel from '@/components/presentation/ConsolePanel.vue';
 import NotesPanel from '@/components/presentation/NotesPanel.vue';
 import RemotePanel from '@/components/presentation/RemotePanel.vue';
@@ -19,6 +20,7 @@ const props = defineProps<{ journey: Journey }>();
 
 const store = usePresentationStore();
 store.setBoardCount(props.journey.boards.length);
+store.setCharacters(props.journey.characters.map((character) => character.id));
 
 const currentBoard = computed(() => props.journey.boards[store.currentIndex]);
 
@@ -56,13 +58,14 @@ onMounted(() => remote.resume(props.journey.slug));
     <Head :title="journey.title" />
     <PresentationLayout>
         <StatusBar :title="journey.title" :board="currentBoard" />
-        <BoardScroller :boards="journey.boards" />
+        <BoardScroller :boards="journey.boards" :characters="journey.characters" />
         <BoardNav />
         <SimulatorPanel :board="currentBoard" />
         <BoardListPanel v-if="store.panels.boards" :boards="journey.boards" />
         <NotesPanel v-if="store.panels.notes" :board="currentBoard" />
         <ConsolePanel v-if="store.panels.console" />
         <TimerPanel v-if="store.panels.timer" />
+        <CharacterPanel v-if="store.panels.character" :characters="journey.characters" />
         <RemotePanel v-if="store.panels.remote" :slug="journey.slug" />
     </PresentationLayout>
 </template>

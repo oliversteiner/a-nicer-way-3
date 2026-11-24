@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { usePresentationStore } from '@/stores/presentation';
-import type { AssetLayerName, Board } from '@/types/presentation';
+import type { AssetLayerName, Board, Character } from '@/types/presentation';
 import { useElementSize, useEventListener, useScroll } from '@vueuse/core';
 import { computed, ref, watch } from 'vue';
+import CharacterLayer from './CharacterLayer.vue';
 
-const props = defineProps<{ boards: Board[] }>();
+const props = withDefaults(defineProps<{ boards: Board[]; characters?: Character[] }>(), { characters: () => [] });
 
 const store = usePresentationStore();
 const scroller = ref<HTMLElement | null>(null);
@@ -63,37 +64,39 @@ useEventListener(window, 'keydown', (event: KeyboardEvent) => {
     >
         <div class="relative h-full" :style="{ width: `${trackWidth}px` }">
             <div class="sticky left-0 h-full overflow-hidden" :style="{ width: `${viewport}px` }">
-                <div
-                    v-for="layer in layers"
-                    :key="layer.name"
-                    class="absolute inset-y-0 left-0"
-                    :class="{ 'pointer-events-none': layer.name !== 'middle' }"
-                    :style="{ width: `${layerWidth(layer.speed)}px`, transform: `translateX(${-scrollX * layer.speed}px)` }"
-                    :data-layer="layer.name"
-                >
+                <template v-for="layer in layers" :key="layer.name">
                     <div
-                        v-for="(board, index) in boards"
-                        :key="board.id"
-                        class="absolute inset-y-0 flex items-center justify-center"
-                        :style="{ left: `${slotLeft(index, layer.speed)}px`, width: `${viewport}px` }"
+                        class="absolute inset-y-0 left-0"
+                        :class="{ 'pointer-events-none': layer.name !== 'middle' }"
+                        :style="{ width: `${layerWidth(layer.speed)}px`, transform: `translateX(${-scrollX * layer.speed}px)` }"
+                        :data-layer="layer.name"
                     >
-                        <img
-                            v-for="asset in assetsFor(board, layer.name)"
-                            :key="asset.url"
-                            :src="asset.url"
-                            alt=""
-                            class="max-h-full max-w-full object-contain"
-                        />
                         <div
-                            v-if="layer.name === 'middle'"
-                            class="max-w-md rounded-lg border bg-card p-6 text-card-foreground shadow-sm"
-                            data-test="board"
+                            v-for="(board, index) in boards"
+                            :key="board.id"
+                            class="absolute inset-y-0 flex items-center justify-center"
+                            :style="{ left: `${slotLeft(index, layer.speed)}px`, width: `${viewport}px` }"
                         >
-                            <h2 class="text-lg font-medium">{{ board.position }}. {{ board.title }}</h2>
-                            <p v-if="board.notes" class="mt-2 text-sm text-muted-foreground">{{ board.notes }}</p>
+                            <img
+                                v-for="asset in assetsFor(board, layer.name)"
+                                :key="asset.url"
+                                :src="asset.url"
+                                alt=""
+                                class="max-h-full max-w-full object-contain"
+                            />
+                            <div
+                                v-if="layer.name === 'middle'"
+                                class="max-w-md rounded-lg border bg-card p-6 text-card-foreground shadow-sm"
+                                data-test="board"
+                            >
+                                <h2 class="text-lg font-medium">{{ board.position }}. {{ board.title }}</h2>
+                                <p v-if="board.notes" class="mt-2 text-sm text-muted-foreground">{{ board.notes }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <!-- The figure stands between the middle and the front layer and does not scroll with them. -->
+                    <CharacterLayer v-if="layer.name === 'middle'" :characters="characters" />
+                </template>
             </div>
             <!-- Scroll snap targets: one per board, aligned to the track. -->
             <div

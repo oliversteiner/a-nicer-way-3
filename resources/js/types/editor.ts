@@ -12,6 +12,18 @@ export interface EditorAsset {
     url: string;
 }
 
+export interface EditorCharacterImage {
+    id: number;
+    pose: 'idle' | 'go' | 'pause' | 'greet';
+    url: string;
+}
+
+export interface EditorCharacter {
+    id: number;
+    name: string;
+    images: EditorCharacterImage[];
+}
+
 export interface EditorBoard {
     id: number;
     position: number;
@@ -33,5 +45,6 @@ export interface EditorJourney {
     slug: string;
     description: string | null;
     published: boolean;
+    characters: EditorCharacter[];
     boards: EditorBoard[];
 }
