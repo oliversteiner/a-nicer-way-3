@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\BoardAsset;
 use App\Models\CharacterImage;
 use App\Models\Journey;
+use App\Models\JourneyBackdrop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -15,6 +16,12 @@ class AssetController extends Controller
     public function show(Request $request, BoardAsset $asset): StreamedResponse
     {
         return $this->serve($request, $asset->board->journey, $asset->path);
+    }
+
+    /** A backdrop that runs behind or in front of all boards. */
+    public function backdrop(Request $request, JourneyBackdrop $backdrop): StreamedResponse
+    {
+        return $this->serve($request, $backdrop->journey, $backdrop->path);
     }
 
     /** An image of a character pose. */

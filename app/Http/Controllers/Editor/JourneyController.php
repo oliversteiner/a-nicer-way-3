@@ -52,7 +52,7 @@ class JourneyController extends Controller
     {
         Gate::authorize('manage', $journey);
 
-        $journey->load('boards.assets', 'characters.images');
+        $journey->load('boards.assets', 'characters.images', 'backdrops');
 
         return Inertia::render('Journeys/Edit', [
             'journey' => [
@@ -61,6 +61,15 @@ class JourneyController extends Controller
                 'slug' => $journey->slug,
                 'description' => $journey->description,
                 'published' => $journey->published_at !== null,
+                'backdrops' => $journey->backdrops->map(fn ($backdrop) => [
+                    'id' => $backdrop->id,
+                    'layer' => $backdrop->layer->value,
+                    'url' => route('backdrops.show', $backdrop),
+                    'speed' => $backdrop->speed,
+                    'align' => $backdrop->align->value,
+                    'height' => $backdrop->height,
+                    'repeat' => $backdrop->repeat,
+                ])->values(),
                 'characters' => $journey->characters->map(fn ($character) => [
                     'id' => $character->id,
                     'name' => $character->name,

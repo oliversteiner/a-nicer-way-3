@@ -12,6 +12,7 @@ Route::get('/', function () {
 Route::get('journeys/{journey:slug}', [JourneyController::class, 'show'])->name('journeys.show');
 
 Route::get('assets/{asset}', [AssetController::class, 'show'])->name('assets.show');
+Route::get('backdrops/{backdrop}', [AssetController::class, 'backdrop'])->name('backdrops.show');
 Route::get('character-images/{image}', [AssetController::class, 'character'])->name('character-images.show');
 
 Route::get('dashboard', function () {

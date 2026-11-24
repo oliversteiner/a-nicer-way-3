@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Editor\BackdropController;
 use App\Http\Controllers\Editor\BoardAssetController;
 use App\Http\Controllers\Editor\BoardController;
 use App\Http\Controllers\Editor\CharacterController;
@@ -25,5 +26,8 @@ Route::middleware('auth')->prefix('editor')->name('editor.')->group(function () 
     Route::delete('characters/{character}', [CharacterController::class, 'destroy'])->name('characters.destroy');
     Route::post('characters/{character}/images', [CharacterImageController::class, 'store'])->name('character-images.store');
     Route::delete('character-images/{image}', [CharacterImageController::class, 'destroy'])->name('character-images.destroy');
+    Route::post('journeys/{journey:id}/backdrops', [BackdropController::class, 'store'])->name('backdrops.store');
+    Route::put('backdrops/{backdrop}', [BackdropController::class, 'update'])->name('backdrops.update');
+    Route::delete('backdrops/{backdrop}', [BackdropController::class, 'destroy'])->name('backdrops.destroy');
     Route::post('boards/{board}/move', [BoardController::class, 'move'])->name('boards.move');
 });
