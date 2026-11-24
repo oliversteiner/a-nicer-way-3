@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BackdropEditor from '@/components/editor/BackdropEditor.vue';
 import BoardAssets from '@/components/editor/BoardAssets.vue';
 import BoardForm from '@/components/editor/BoardForm.vue';
 import CharacterEditor from '@/components/editor/CharacterEditor.vue';
@@ -146,6 +147,8 @@ const summary = (board: EditorBoard) => [`Day ${board.day}`, board.time, board.l
                     </li>
                 </ol>
             </div>
+
+            <BackdropEditor :journey-id="journey.id" :backdrops="journey.backdrops" />
 
             <CharacterEditor :journey-id="journey.id" :characters="journey.characters" />
 

@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { usePresentationStore } from '@/stores/presentation';
-import type { AssetLayerName, Board, Character } from '@/types/presentation';
+import type { AssetLayerName, Backdrop, Board, Character } from '@/types/presentation';
 import { useElementSize, useEventListener, useScroll } from '@vueuse/core';
 import { computed, ref, watch } from 'vue';
 import CharacterLayer from './CharacterLayer.vue';
 
-const props = withDefaults(defineProps<{ boards: Board[]; characters?: Character[] }>(), { characters: () => [] });
+const props = withDefaults(defineProps<{ boards: Board[]; characters?: Character[]; backdrops?: Backdrop[] }>(), {
+    characters: () => [],
+    backdrops: () => [],
+});
 
 const store = usePresentationStore();
 const scroller = ref<HTMLElement | null>(null);
@@ -28,6 +31,24 @@ function layerWidth(speed: number) {
 
 function slotLeft(index: number, speed: number) {
     return index * viewport.value * speed;
+}
+
+const backdropsFor = (layer: Backdrop['layer']) => props.backdrops.filter((backdrop) => backdrop.layer === layer);
+
+/** A backdrop runs the whole length of the journey; it moves at its own speed and sits at its own height. */
+function backdropStyle(backdrop: Backdrop) {
+    const move = `translateX(${-scrollX.value * backdrop.speed}px)`;
+
+    return {
+        width: `${layerWidth(backdrop.speed)}px`,
+        height: `${backdrop.height}%`,
+        ...(backdrop.align === 'top' ? { top: '0' } : backdrop.align === 'bottom' ? { bottom: '0' } : { top: '50%' }),
+        transform: backdrop.align === 'center' ? `${move} translateY(-50%)` : move,
+        backgroundImage: `url("${backdrop.url}")`,
+        backgroundRepeat: backdrop.repeat ? 'repeat-x' : 'no-repeat',
+        backgroundSize: 'auto 100%',
+        backgroundPosition: backdrop.align === 'top' ? 'left top' : backdrop.align === 'bottom' ? 'left bottom' : 'left center',
+    };
 }
 
 function assetsFor(board: Board, layer: AssetLayerName) {
@@ -64,6 +85,14 @@ useEventListener(window, 'keydown', (event: KeyboardEvent) => {
     >
         <div class="relative h-full" :style="{ width: `${trackWidth}px` }">
             <div class="sticky left-0 h-full overflow-hidden" :style="{ width: `${viewport}px` }">
+                <div
+                    v-for="backdrop in backdropsFor('back')"
+                    :key="`backdrop-${backdrop.id}`"
+                    class="pointer-events-none absolute left-0"
+                    :style="backdropStyle(backdrop)"
+                    data-test="backdrop"
+                    data-layer="back"
+                />
                 <template v-for="layer in layers" :key="layer.name">
                     <div
                         class="absolute inset-y-0 left-0"
@@ -97,6 +126,14 @@ useEventListener(window, 'keydown', (event: KeyboardEvent) => {
                     <!-- The figure stands between the middle and the front layer and does not scroll with them. -->
                     <CharacterLayer v-if="layer.name === 'middle'" :characters="characters" />
                 </template>
+                <div
+                    v-for="backdrop in backdropsFor('front')"
+                    :key="`backdrop-${backdrop.id}`"
+                    class="pointer-events-none absolute left-0"
+                    :style="backdropStyle(backdrop)"
+                    data-test="backdrop"
+                    data-layer="front"
+                />
             </div>
             <!-- Scroll snap targets: one per board, aligned to the track. -->
             <div

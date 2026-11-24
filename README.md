@@ -45,11 +45,23 @@ Log in and open `/editor/journeys` (menu entry «Journeys») to create journeys,
 
 Characters (figures that stand in the scene) are managed on the same page: each has a name and one image per pose (standing, walking, break, greeting); a pose without an image shows the standing image, a character without images a labelled placeholder. In the presentation the «Figur» panel picks the character and its action; a greeting returns to standing after a moment.
 
+Backdrops run along the whole journey behind or in front of the boards (sky, mountains): each has its own parallax speed, alignment, height and can repeat. They are managed on the same page.
+
 Each board takes images for the three parallax layers (PNG, JPG, WebP or SVG, up to 5 MB). They (and the character images) are stored on the private `local` disk and served through `/assets/{id}` and `/character-images/{id}`, only for published journeys (or to the owner) and with a sandboxing `Content-Security-Policy`, so a script inside an uploaded SVG cannot run.
 
 Remote control: the «Fernsteuerung» panel shows a QR code and a link. Open it on a phone to switch boards (back, next, jump to a board), start, pause and reset the timer, pick the character and its action (standing, walking, break, greeting) and read the notes of the current board. The presentation publishes its state through Reverb; the phone sends commands to the server, which checks them and broadcasts them to the presentation. A pairing is a random token that expires after 12 hours; «Neu koppeln» ends the old one. Reverb needs a long-running process (`php artisan reverb:start`) and, behind a proxy, a secure WebSocket (`wss`) route; see the Reverb docs.
 
 The toolbar in the status bar opens movable panels: board list (jump to a board), notes of the current board, phone simulator, console (log of board changes and timer events) and a countdown timer for the talk.
+
+## Import the earlier website
+
+The journey of the v2 website (the `web` folder with `data/defaultdata.json` and `images/`) can be imported: 16 stations with their images, the figures Kevin, Gruppe and Bus with their poses, and the paper and mountain backdrops.
+
+```bash
+php artisan journey:import-legacy /path/to/web --user=you@example.com --publish
+```
+
+Images are copied to the private disk. Without `--publish` the journey is a draft. An earlier import is not touched; add `--replace` to import again (this deletes the earlier one and its images). Missing files are skipped and listed. The old website itself is not part of this repository.
 
 ## Checks
 
@@ -68,6 +80,7 @@ npm run format:check
 - `boards`: ordered by `position`; day, time, location, night flag, mood, `simulator_state` (JSON, e.g. `{"screen": "Fahrplan"}`)
 - `board_assets`: images for the parallax layers `back`, `middle` and `front`
 - `characters` and `character_images`: figures with one image per pose (`idle`, `go`, `pause`, `greet`)
+- `journey_backdrops`: journey-wide images (layer `back` or `front`, speed, alignment, height, repeat)
 
 ## History
 
