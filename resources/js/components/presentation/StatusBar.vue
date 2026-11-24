@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button';
-import { usePresentationStore } from '@/stores/presentation';
 import type { Board } from '@/types/presentation';
-import { Clock, MapPin, Moon, Smartphone, Sun } from 'lucide-vue-next';
+import { Clock, MapPin, Moon, Sun } from 'lucide-vue-next';
 import { computed } from 'vue';
+import PanelToolbar from './PanelToolbar.vue';
 
 const props = defineProps<{ title: string; board: Board | undefined }>();
-
-const store = usePresentationStore();
 
 const time = computed(() => props.board?.time?.slice(0, 5) ?? null);
 </script>
@@ -22,6 +19,6 @@ const time = computed(() => props.board?.time?.slice(0, 5) ?? null);
             <span v-if="board.mood">{{ board.mood }}</span>
             <component :is="board.is_night ? Moon : Sun" class="size-4" :aria-label="board.is_night ? 'Nacht' : 'Tag'" />
         </div>
-        <Button variant="ghost" size="icon" aria-label="Simulator ein- oder ausblenden" @click="store.toggleSimulator()"><Smartphone /></Button>
+        <PanelToolbar :class="{ 'ml-auto': !board }" />
     </header>
 </template>
