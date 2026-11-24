@@ -2,7 +2,7 @@ export type AssetLayerName = 'back' | 'middle' | 'front';
 
 export interface BoardAsset {
     layer: AssetLayerName;
-    path: string;
+    url: string;
 }
 
 export interface Board {

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BoardAssets from '@/components/editor/BoardAssets.vue';
 import BoardForm from '@/components/editor/BoardForm.vue';
 import JourneyFields from '@/components/editor/JourneyFields.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
@@ -19,7 +20,7 @@ import type { EditorBoard, EditorJourney } from '@/types/editor';
 import { TransitionRoot } from '@headlessui/vue';
 import { Head, router, useForm } from '@inertiajs/vue3';
 import { ArrowDown, ArrowUp, ExternalLink, Pencil, Plus, Trash2 } from 'lucide-vue-next';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps<{ journey: EditorJourney }>();
 
@@ -37,7 +38,11 @@ const form = useForm({
 const save = () => form.put(route('editor.journeys.update', props.journey.id), { preserveScroll: true });
 
 // Board dialog: `null` while closed, `'new'` for a new board, else the board being edited.
-const editing = ref<EditorBoard | 'new' | null>(null);
+const editing = ref<number | 'new' | null>(null);
+// Read the board from the props so uploads (which reload them) show up in the open dialog.
+const editingBoard = computed(() =>
+    typeof editing.value === 'number' ? (props.journey.boards.find((board) => board.id === editing.value) ?? null) : null,
+);
 const dialogOpen = (open: boolean) => {
     if (!open) editing.value = null;
 };
@@ -117,7 +122,7 @@ const summary = (board: EditorBoard) => [`Day ${board.day}`, board.time, board.l
                         >
                             <ArrowDown />
                         </Button>
-                        <Button variant="ghost" size="icon" aria-label="Edit board" @click="editing = board"><Pencil /></Button>
+                        <Button variant="ghost" size="icon" aria-label="Edit board" @click="editing = board.id"><Pencil /></Button>
                         <Dialog>
                             <DialogTrigger as-child>
                                 <Button variant="ghost" size="icon" aria-label="Delete board"><Trash2 /></Button>
@@ -176,12 +181,13 @@ const summary = (board: EditorBoard) => [`Day ${board.day}`, board.time, board.l
                     <DialogDescription>Everything except the day is optional.</DialogDescription>
                 </DialogHeader>
                 <BoardForm
-                    v-if="editing !== null"
-                    :key="editing === 'new' ? 'new' : editing.id"
+                    v-if="editing === 'new' || editingBoard"
+                    :key="editing === 'new' ? 'new' : editing"
                     :journey-id="journey.id"
-                    :board="editing === 'new' ? null : editing"
+                    :board="editingBoard"
                     @saved="editing = null"
                 />
+                <BoardAssets v-if="editingBoard" :board="editingBoard" />
             </DialogContent>
         </Dialog>
     </AppLayout>

@@ -6,6 +6,12 @@ export interface JourneySummary {
     boards_count: number;
 }
 
+export interface EditorAsset {
+    id: number;
+    layer: 'back' | 'middle' | 'front';
+    url: string;
+}
+
 export interface EditorBoard {
     id: number;
     position: number;
@@ -18,6 +24,7 @@ export interface EditorBoard {
     is_night: boolean;
     mood: string | null;
     simulator_screen: string | null;
+    assets: EditorAsset[];
 }
 
 export interface EditorJourney {

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Editor\BoardAssetController;
 use App\Http\Controllers\Editor\BoardController;
 use App\Http\Controllers\Editor\JourneyController;
 use Illuminate\Support\Facades\Route;
@@ -15,5 +16,7 @@ Route::middleware('auth')->prefix('editor')->name('editor.')->group(function () 
     Route::post('journeys/{journey:id}/boards', [BoardController::class, 'store'])->name('boards.store');
     Route::put('boards/{board}', [BoardController::class, 'update'])->name('boards.update');
     Route::delete('boards/{board}', [BoardController::class, 'destroy'])->name('boards.destroy');
+    Route::post('boards/{board}/assets', [BoardAssetController::class, 'store'])->name('assets.store');
+    Route::delete('assets/{asset}', [BoardAssetController::class, 'destroy'])->name('assets.destroy');
     Route::post('boards/{board}/move', [BoardController::class, 'move'])->name('boards.move');
 });

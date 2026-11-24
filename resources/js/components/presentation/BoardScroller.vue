@@ -79,8 +79,8 @@ useEventListener(window, 'keydown', (event: KeyboardEvent) => {
                     >
                         <img
                             v-for="asset in assetsFor(board, layer.name)"
-                            :key="asset.path"
-                            :src="`/storage/${asset.path}`"
+                            :key="asset.url"
+                            :src="asset.url"
                             alt=""
                             class="max-h-full max-w-full object-contain"
                         />
