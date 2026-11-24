@@ -1,8 +1,9 @@
+import { useCountdown } from '@/composables/useCountdown';
 import { defineStore } from 'pinia';
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useConsoleStore } from './console';
 
-export type PanelName = 'simulator' | 'boards' | 'notes' | 'console' | 'timer';
+export type PanelName = 'simulator' | 'boards' | 'notes' | 'console' | 'timer' | 'remote';
 
 export const usePresentationStore = defineStore('presentation', () => {
     const consoleLog = useConsoleStore();
@@ -14,7 +15,7 @@ export const usePresentationStore = defineStore('presentation', () => {
     /** Board the smooth scroll is heading to; lets quick key presses add up. */
     const pendingIndex = ref<number | null>(null);
 
-    const panels = ref<Record<PanelName, boolean>>({ simulator: true, boards: false, notes: false, console: false, timer: false });
+    const panels = ref<Record<PanelName, boolean>>({ simulator: true, boards: false, notes: false, console: false, timer: false, remote: false });
 
     function setPanel(name: PanelName, open: boolean) {
         if (panels.value[name] === open) return;
@@ -39,6 +40,20 @@ export const usePresentationStore = defineStore('presentation', () => {
 
     const simulatorBigger = () => resizeSimulator(SIMULATOR_STEP);
     const simulatorSmaller = () => resizeSimulator(-SIMULATOR_STEP);
+
+    // The talk timer lives here (not in its panel) so the remote control can drive it too.
+    const countdown = useCountdown({
+        seconds: 300,
+        warningSeconds: 60,
+        onFinish: () => consoleLog.log('timer', 'time is up', null, 'warning'),
+    });
+
+    watch(countdown.running, (running, wasRunning) => {
+        if (running) consoleLog.log('timer', 'started', countdown.display.value);
+        else if (wasRunning && !countdown.timeOut.value) consoleLog.log('timer', 'paused', countdown.display.value);
+    });
+
+    const timerToggle = () => (countdown.running.value ? countdown.pause() : countdown.start());
 
     const isFirst = computed(() => currentIndex.value <= 0);
     const isLast = computed(() => currentIndex.value >= boardCount.value - 1);
@@ -67,6 +82,17 @@ export const usePresentationStore = defineStore('presentation', () => {
 
     return {
         panels,
+        timerRemaining: countdown.remaining,
+        timerTotal: countdown.total,
+        timerRunning: countdown.running,
+        timerDisplay: countdown.display,
+        timerNearEnd: countdown.nearEnd,
+        timerTimeOut: countdown.timeOut,
+        timerStart: countdown.start,
+        timerPause: countdown.pause,
+        timerReset: countdown.reset,
+        timerSetDuration: countdown.setDuration,
+        timerToggle,
         togglePanel,
         closePanel,
         simulatorSolo,

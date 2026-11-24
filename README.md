@@ -7,7 +7,7 @@ A journey is told as a row of boards (two days, hour by hour). Scrolling sideway
 ## Stack
 
 - Laravel 12, PHP 8.2+, MariaDB / MySQL
-- Inertia 2, Vue 3 (`<script setup>`, TypeScript), Pinia
+- Inertia 2, Vue 3 (`<script setup>`, TypeScript), Pinia, Laravel Reverb + Echo (remote control)
 - Vite 6, Tailwind CSS 3.4, shadcn-vue components, lucide icons, VueUse
 - Pest / PHPUnit for tests
 
@@ -18,6 +18,7 @@ composer install
 npm install
 cp .env.example .env
 php artisan key:generate
+php artisan reverb:install   # adds the Reverb keys to .env (once)
 ```
 
 Create the database named in `.env` (default `a-nicer-way`), then:
@@ -31,10 +32,11 @@ The seeder adds a demo journey with 11 boards.
 ## Run
 
 ```bash
-composer dev      # server, queue, logs and Vite
+composer dev      # server, queue, logs, Vite and Reverb
 # or
 php artisan serve
 npm run dev
+php artisan reverb:start   # only needed for the remote control
 ```
 
 Open `/journeys/demo`. Use the left and right arrow keys, the arrow buttons or the dots to move between boards.
@@ -42,6 +44,8 @@ Open `/journeys/demo`. Use the left and right arrow keys, the arrow buttons or t
 Log in and open `/editor/journeys` (menu entry «Journeys») to create journeys, add, edit, reorder and delete boards, and publish a journey. Only the owner can edit a journey; drafts are visible to the owner only.
 
 Each board takes images for the three parallax layers (PNG, JPG, WebP or SVG, up to 5 MB). They are stored on the private `local` disk and served through `/assets/{id}`, only for published journeys (or to the owner) and with a sandboxing `Content-Security-Policy`, so a script inside an uploaded SVG cannot run.
+
+Remote control: the «Fernsteuerung» panel shows a QR code and a link. Open it on a phone to switch boards (back, next, jump to a board), start, pause and reset the timer and read the notes of the current board. The presentation publishes its state through Reverb; the phone sends commands to the server, which checks them and broadcasts them to the presentation. A pairing is a random token that expires after 12 hours; «Neu koppeln» ends the old one. Reverb needs a long-running process (`php artisan reverb:start`) and, behind a proxy, a secure WebSocket (`wss`) route; see the Reverb docs.
 
 The toolbar in the status bar opens movable panels: board list (jump to a board), notes of the current board, phone simulator, console (log of board changes and timer events) and a countdown timer for the talk.
 
@@ -69,7 +73,7 @@ npm run format:check
 
 ## Not ported yet
 
-The character layer and the remote control from the earlier Vue 2 version (`anw-presentation`).
+The character layer from the earlier Vue 2 version (`anw-presentation`).
 
 ## License
 

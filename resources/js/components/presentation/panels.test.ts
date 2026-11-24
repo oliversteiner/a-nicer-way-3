@@ -39,7 +39,7 @@ describe('PanelToolbar', () => {
 
         const pressed = Object.fromEntries(wrapper.findAll('button').map((b) => [b.attributes('title'), b.attributes('aria-pressed')]));
 
-        expect(pressed).toEqual({ Boards: 'false', Notizen: 'false', Simulator: 'true', Konsole: 'false', Timer: 'false' });
+        expect(pressed).toEqual({ Boards: 'false', Notizen: 'false', Simulator: 'true', Konsole: 'false', Timer: 'false', Fernsteuerung: 'false' });
     });
 
     it('toggles a panel on click', async () => {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
 import { usePresentationStore, type PanelName } from '@/stores/presentation';
-import { List, Smartphone, StickyNote, Terminal, Timer } from 'lucide-vue-next';
+import { Cast, List, Smartphone, StickyNote, Terminal, Timer } from 'lucide-vue-next';
 import type { Component } from 'vue';
 
 const store = usePresentationStore();
@@ -12,6 +12,7 @@ const items: { name: PanelName; label: string; icon: Component }[] = [
     { name: 'simulator', label: 'Simulator', icon: Smartphone },
     { name: 'console', label: 'Konsole', icon: Terminal },
     { name: 'timer', label: 'Timer', icon: Timer },
+    { name: 'remote', label: 'Fernsteuerung', icon: Cast },
 ];
 </script>
 
