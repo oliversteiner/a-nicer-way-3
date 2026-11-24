@@ -20,12 +20,15 @@ class RemoteControlTest extends TestCase
     /** @return array<string, mixed> */
     private function state(array $override = []): array
     {
-        return [
+        return array_replace([
             'index' => 1,
             'count' => 3,
             'board' => ['position' => 2, 'title' => 'Zug', 'notes' => 'Notiz', 'day' => 1, 'time' => '08:00', 'location' => 'Bahn'],
+            'characters' => [['id' => 7, 'name' => 'Kevin'], ['id' => 8, 'name' => 'Bus']],
+            'character_id' => 7,
+            'character_pose' => 'go',
             'timer' => ['remaining' => 120, 'total' => 300, 'running' => true, 'nearEnd' => false, 'timeOut' => false],
-        ] + $override;
+        ], $override);
     }
 
     /** @return array{remote_token: string, presenter_token: string} */
@@ -117,6 +120,56 @@ class RemoteControlTest extends TestCase
         Event::assertDispatched(RemoteState::class, fn ($e) => $e->token === $tokens['remote_token'] && $e->state['board']['title'] === 'Zug');
     }
 
+    public function test_character_commands_are_broadcast(): void
+    {
+        Event::fake([RemoteCommand::class]);
+        $token = $this->pairing()['remote_token'];
+
+        $this->postJson("/remote/{$token}/command", ['action' => 'character-select', 'value' => 7])->assertNoContent();
+        $this->postJson("/remote/{$token}/command", ['action' => 'character-pose', 'pose' => 'greet'])->assertNoContent();
+
+        Event::assertDispatched(RemoteCommand::class, fn ($e) => $e->action === 'character-select' && $e->value === 7 && $e->pose === null);
+        Event::assertDispatched(RemoteCommand::class, fn ($e) => $e->action === 'character-pose' && $e->pose === 'greet' && $e->value === null);
+    }
+
+    public function test_character_commands_are_validated(): void
+    {
+        Event::fake([RemoteCommand::class]);
+        $token = $this->pairing()['remote_token'];
+
+        $this->postJson("/remote/{$token}/command", ['action' => 'character-select'])->assertJsonValidationErrors('value');
+        $this->postJson("/remote/{$token}/command", ['action' => 'character-pose'])->assertJsonValidationErrors('pose');
+        $this->postJson("/remote/{$token}/command", ['action' => 'character-pose', 'pose' => 'fly'])->assertJsonValidationErrors('pose');
+
+        Event::assertNotDispatched(RemoteCommand::class);
+    }
+
+    public function test_commands_carry_the_pose_in_their_payload(): void
+    {
+        $this->assertSame(['action' => 'character-pose', 'value' => null, 'pose' => 'go'], (new RemoteCommand('abc', 'character-pose', null, 'go'))->broadcastWith());
+    }
+
+    public function test_state_includes_the_characters_and_the_current_pose(): void
+    {
+        Event::fake([RemoteState::class]);
+        $tokens = $this->pairing();
+
+        $this->postJson("/remote/{$tokens['remote_token']}/state", ['presenter_token' => $tokens['presenter_token'], 'state' => $this->state(['characters' => [], 'character_id' => null, 'character_pose' => 'idle'])])
+            ->assertNoContent();
+        $this->postJson("/remote/{$tokens['remote_token']}/state", ['presenter_token' => $tokens['presenter_token'], 'state' => $this->state()])
+            ->assertNoContent();
+
+        Event::assertDispatched(RemoteState::class, fn ($e) => $e->state['character_id'] === 7 && $e->state['character_pose'] === 'go' && $e->state['characters'][1]['name'] === 'Bus');
+    }
+
+    public function test_invalid_character_state_is_rejected(): void
+    {
+        $tokens = $this->pairing();
+
+        $this->postJson("/remote/{$tokens['remote_token']}/state", ['presenter_token' => $tokens['presenter_token'], 'state' => $this->state(['character_pose' => 'fly', 'characters' => [['id' => 'x']]])])
+            ->assertJsonValidationErrors(['state.character_pose', 'state.characters.0.id', 'state.characters.0.name']);
+    }
+
     public function test_state_needs_the_presenter_token(): void
     {
         Event::fake([RemoteState::class]);
@@ -164,6 +217,6 @@ class RemoteControlTest extends TestCase
     {
         $this->assertSame('remote.abc.commands', (new RemoteCommand('abc', 'next'))->broadcastOn()->name);
         $this->assertSame('remote.abc.state', (new RemoteState('abc', []))->broadcastOn()->name);
-        $this->assertSame(['action' => 'goto', 'value' => 3], (new RemoteCommand('abc', 'goto', 3))->broadcastWith());
+        $this->assertSame(['action' => 'goto', 'value' => 3, 'pose' => null], (new RemoteCommand('abc', 'goto', 3))->broadcastWith());
     }
 }

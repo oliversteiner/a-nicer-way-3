@@ -15,6 +15,7 @@ class RemoteCommand implements ShouldBroadcastNow
         public string $token,
         public string $action,
         public ?int $value = null,
+        public ?string $pose = null,
     ) {}
 
     public function broadcastOn(): Channel
@@ -27,9 +28,9 @@ class RemoteCommand implements ShouldBroadcastNow
         return 'remote.command';
     }
 
-    /** @return array{action: string, value: int|null} */
+    /** @return array{action: string, value: int|null, pose: string|null} */
     public function broadcastWith(): array
     {
-        return ['action' => $this->action, 'value' => $this->value];
+        return ['action' => $this->action, 'value' => $this->value, 'pose' => $this->pose];
     }
 }
