@@ -53,7 +53,6 @@ php artisan test      # tests run on in-memory SQLite
 npm run test:js       # Vitest: stores, countdown, panels
 npm run lint
 npm run format:check
-npm run build
 ```
 
 ## Data model
