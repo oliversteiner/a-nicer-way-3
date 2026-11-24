@@ -1,9 +1,10 @@
 import { useCountdown } from '@/composables/useCountdown';
+import type { CharacterPose } from '@/types/presentation';
 import { defineStore } from 'pinia';
 import { computed, ref, watch } from 'vue';
 import { useConsoleStore } from './console';
 
-export type PanelName = 'simulator' | 'boards' | 'notes' | 'console' | 'timer' | 'remote';
+export type PanelName = 'simulator' | 'boards' | 'notes' | 'console' | 'timer' | 'remote' | 'character';
 
 export const usePresentationStore = defineStore('presentation', () => {
     const consoleLog = useConsoleStore();
@@ -15,7 +16,15 @@ export const usePresentationStore = defineStore('presentation', () => {
     /** Board the smooth scroll is heading to; lets quick key presses add up. */
     const pendingIndex = ref<number | null>(null);
 
-    const panels = ref<Record<PanelName, boolean>>({ simulator: true, boards: false, notes: false, console: false, timer: false, remote: false });
+    const panels = ref<Record<PanelName, boolean>>({
+        simulator: true,
+        boards: false,
+        notes: false,
+        console: false,
+        timer: false,
+        remote: false,
+        character: false,
+    });
 
     function setPanel(name: PanelName, open: boolean) {
         if (panels.value[name] === open) return;
@@ -55,6 +64,42 @@ export const usePresentationStore = defineStore('presentation', () => {
 
     const timerToggle = () => (countdown.running.value ? countdown.pause() : countdown.start());
 
+    // Character layer: which figure is on stage and what it is doing.
+    const characterId = ref<number | null>(null);
+    const characterPose = ref<CharacterPose>('idle');
+    const GREET_SECONDS = 2.5;
+    let greetTimer: ReturnType<typeof setTimeout> | null = null;
+
+    function clearGreetTimer() {
+        if (greetTimer !== null) clearTimeout(greetTimer);
+        greetTimer = null;
+    }
+
+    /** Called with the journey's characters: keeps the selection if it still exists, else picks the first. */
+    function setCharacters(ids: number[]) {
+        if (characterId.value === null || !ids.includes(characterId.value)) characterId.value = ids[0] ?? null;
+    }
+
+    function selectCharacter(id: number) {
+        clearGreetTimer();
+        characterId.value = id;
+        characterPose.value = 'idle';
+        consoleLog.log('character', 'selected', id);
+    }
+
+    function setPose(pose: CharacterPose) {
+        clearGreetTimer();
+        characterPose.value = pose;
+        consoleLog.log('character', pose);
+
+        // A greeting is short: the figure goes back to standing.
+        if (pose === 'greet') {
+            greetTimer = setTimeout(() => {
+                if (characterPose.value === 'greet') characterPose.value = 'idle';
+            }, GREET_SECONDS * 1000);
+        }
+    }
+
     const isFirst = computed(() => currentIndex.value <= 0);
     const isLast = computed(() => currentIndex.value >= boardCount.value - 1);
 
@@ -82,6 +127,11 @@ export const usePresentationStore = defineStore('presentation', () => {
 
     return {
         panels,
+        characterId,
+        characterPose,
+        setCharacters,
+        selectCharacter,
+        setPose,
         timerRemaining: countdown.remaining,
         timerTotal: countdown.total,
         timerRunning: countdown.running,

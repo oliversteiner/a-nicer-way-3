@@ -1,5 +1,5 @@
 import { createPinia, setActivePinia } from 'pinia';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useConsoleStore } from './console';
 import { usePresentationStore } from './presentation';
 
@@ -9,7 +9,7 @@ describe('presentation store', () => {
     it('starts with only the simulator open', () => {
         const store = usePresentationStore();
 
-        expect(store.panels).toEqual({ simulator: true, boards: false, notes: false, console: false, timer: false, remote: false });
+        expect(store.panels).toEqual({ simulator: true, boards: false, notes: false, console: false, timer: false, remote: false, character: false });
     });
 
     it('toggles panels and logs the change', () => {
@@ -73,5 +73,83 @@ describe('presentation store', () => {
         expect(store.simulatorHeight).toBe(800);
         for (let i = 0; i < 10; i++) store.simulatorSmaller();
         expect(store.simulatorHeight).toBe(360);
+    });
+    describe('character layer', () => {
+        beforeEach(() => vi.useFakeTimers());
+        afterEach(() => vi.useRealTimers());
+
+        it('picks the first character and keeps a still valid selection', () => {
+            const store = usePresentationStore();
+
+            store.setCharacters([4, 5]);
+            expect(store.characterId).toBe(4);
+
+            store.selectCharacter(5);
+            store.setCharacters([4, 5]);
+            expect(store.characterId).toBe(5);
+
+            store.setCharacters([9]);
+            expect(store.characterId).toBe(9);
+        });
+
+        it('has no selection without characters', () => {
+            const store = usePresentationStore();
+
+            store.setCharacters([]);
+
+            expect(store.characterId).toBeNull();
+        });
+
+        it('stands again when another character is selected', () => {
+            const store = usePresentationStore();
+            store.setCharacters([1, 2]);
+            store.setPose('go');
+
+            store.selectCharacter(2);
+
+            expect(store.characterPose).toBe('idle');
+        });
+
+        it('keeps go and pause until changed', () => {
+            const store = usePresentationStore();
+
+            store.setPose('go');
+            vi.advanceTimersByTime(60_000);
+            expect(store.characterPose).toBe('go');
+
+            store.setPose('pause');
+            vi.advanceTimersByTime(60_000);
+            expect(store.characterPose).toBe('pause');
+        });
+
+        it('returns from greeting to standing after a short time', () => {
+            const store = usePresentationStore();
+
+            store.setPose('greet');
+            expect(store.characterPose).toBe('greet');
+            vi.advanceTimersByTime(2600);
+
+            expect(store.characterPose).toBe('idle');
+        });
+
+        it('does not let an old greeting end a newer pose', () => {
+            const store = usePresentationStore();
+
+            store.setPose('greet');
+            vi.advanceTimersByTime(1000);
+            store.setPose('go');
+            vi.advanceTimersByTime(5000);
+
+            expect(store.characterPose).toBe('go');
+        });
+
+        it('logs what the character does', () => {
+            const store = usePresentationStore();
+            const log = useConsoleStore();
+
+            store.setPose('pause');
+
+            expect(log.messages.at(-1)).toMatchObject({ tag: 'character', text: 'pause' });
+        });
     });
 });

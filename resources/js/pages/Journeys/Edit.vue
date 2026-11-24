@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BoardAssets from '@/components/editor/BoardAssets.vue';
 import BoardForm from '@/components/editor/BoardForm.vue';
+import CharacterEditor from '@/components/editor/CharacterEditor.vue';
 import JourneyFields from '@/components/editor/JourneyFields.vue';
 import HeadingSmall from '@/components/HeadingSmall.vue';
 import { Button } from '@/components/ui/button';
@@ -145,6 +146,8 @@ const summary = (board: EditorBoard) => [`Day ${board.day}`, board.time, board.l
                     </li>
                 </ol>
             </div>
+
+            <CharacterEditor :journey-id="journey.id" :characters="journey.characters" />
 
             <div class="space-y-6">
                 <HeadingSmall title="Delete journey" description="Delete this journey and all of its boards" />

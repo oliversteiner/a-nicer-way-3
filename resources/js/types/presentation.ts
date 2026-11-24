@@ -5,6 +5,15 @@ export interface BoardAsset {
     url: string;
 }
 
+export type CharacterPose = 'idle' | 'go' | 'pause' | 'greet';
+
+export interface Character {
+    id: number;
+    name: string;
+    /** Image URL per pose; poses without an image are missing. */
+    images: Partial<Record<CharacterPose, string>>;
+}
+
 export interface Board {
     id: number;
     position: number;
@@ -24,5 +33,6 @@ export interface Journey {
     title: string;
     slug: string;
     description: string | null;
+    characters: Character[];
     boards: Board[];
 }
