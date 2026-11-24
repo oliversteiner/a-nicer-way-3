@@ -35,6 +35,9 @@ remote.setStateSource(() => {
         board: board
             ? { position: board.position, title: board.title, notes: board.notes, day: board.day, time: board.time, location: board.location }
             : null,
+        characters: props.journey.characters.map((character) => ({ id: character.id, name: character.name })),
+        character_id: store.characterId,
+        character_pose: store.characterPose,
         timer: {
             remaining: store.timerRemaining,
             total: store.timerTotal,
@@ -47,7 +50,15 @@ remote.setStateSource(() => {
 
 watch(
     // While the timer runs the remote counts down itself; only changes are sent.
-    () => [store.currentIndex, store.timerRunning, store.timerTotal, store.timerRunning ? null : store.timerRemaining, store.timerTimeOut],
+    () => [
+        store.currentIndex,
+        store.timerRunning,
+        store.timerTotal,
+        store.timerRunning ? null : store.timerRemaining,
+        store.timerTimeOut,
+        store.characterId,
+        store.characterPose,
+    ],
     () => remote.publish(),
 );
 

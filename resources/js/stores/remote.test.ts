@@ -27,7 +27,15 @@ vi.mock('@/lib/remoteApi', async (importOriginal) => ({
 }));
 
 const pairing = { remote_token: 'rt', presenter_token: 'pt', remote_url: 'http://x.test/remote/rt' };
-const state: RemoteState = { index: 0, count: 3, board: null, timer: { remaining: 300, total: 300, running: false, nearEnd: false, timeOut: false } };
+const state: RemoteState = {
+    index: 0,
+    count: 3,
+    board: null,
+    characters: [],
+    character_id: null,
+    character_pose: 'idle',
+    timer: { remaining: 300, total: 300, running: false, nearEnd: false, timeOut: false },
+};
 
 beforeEach(() => {
     setActivePinia(createPinia());
@@ -140,6 +148,30 @@ describe('remote store', () => {
 
         remote.handleCommand({ action: 'timer-reset', value: null });
         expect(presentation.timerRemaining).toBe(300);
+    });
+
+    it('selects a character and sets a pose on command', () => {
+        const presentation = usePresentationStore();
+        presentation.setCharacters([4, 5]);
+        const remote = useRemoteStore();
+
+        remote.handleCommand({ action: 'character-select', value: 5 });
+        remote.handleCommand({ action: 'character-pose', value: null, pose: 'greet' });
+
+        expect(presentation.characterId).toBe(5);
+        expect(presentation.characterPose).toBe('greet');
+    });
+
+    it('ignores a character that does not exist and a pose command without a pose', () => {
+        const presentation = usePresentationStore();
+        presentation.setCharacters([4]);
+        const remote = useRemoteStore();
+
+        remote.handleCommand({ action: 'character-select', value: 99 });
+        remote.handleCommand({ action: 'character-pose', value: null });
+
+        expect(presentation.characterId).toBe(4);
+        expect(presentation.characterPose).toBe('idle');
     });
 
     it('answers hello with the current state and marks the remote as connected', async () => {

@@ -1,3 +1,4 @@
+import type { CharacterPose } from '@/types/presentation';
 import type { Pairing, RemoteAction, RemoteState } from '@/types/remote';
 
 export class RemoteApiError extends Error {
@@ -31,8 +32,12 @@ async function request<T>(method: 'POST' | 'DELETE', url: string, body?: unknown
 
 export const pairPresentation = (slug: string) => request<Pairing>('POST', `/journeys/${encodeURIComponent(slug)}/remote`) as Promise<Pairing>;
 
-export const sendCommand = (token: string, action: RemoteAction, value?: number) =>
-    request<never>('POST', `/remote/${encodeURIComponent(token)}/command`, value === undefined ? { action } : { action, value });
+export const sendCommand = (token: string, action: RemoteAction, value?: number, pose?: CharacterPose) =>
+    request<never>('POST', `/remote/${encodeURIComponent(token)}/command`, {
+        action,
+        ...(value === undefined ? {} : { value }),
+        ...(pose === undefined ? {} : { pose }),
+    });
 
 export const sendState = (token: string, presenterToken: string, state: RemoteState) =>
     request<never>('POST', `/remote/${encodeURIComponent(token)}/state`, { presenter_token: presenterToken, state });

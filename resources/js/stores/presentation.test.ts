@@ -92,6 +92,16 @@ describe('presentation store', () => {
             expect(store.characterId).toBe(9);
         });
 
+        it('ignores a character that is not part of the journey', () => {
+            const store = usePresentationStore();
+            store.setCharacters([1, 2]);
+
+            store.selectCharacter(99);
+
+            expect(store.characterId).toBe(1);
+            expect(useConsoleStore().messages.some((m) => m.tag === 'character')).toBe(false);
+        });
+
         it('has no selection without characters', () => {
             const store = usePresentationStore();
 

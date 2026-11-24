@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { Button } from '@/components/ui/button';
 import { RemoteApiError, sendCommand } from '@/lib/remoteApi';
+import type { CharacterPose } from '@/types/presentation';
 import type { RemoteAction, RemoteState } from '@/types/remote';
 import { Head } from '@inertiajs/vue3';
 import { useConnectionStatus, useEchoPublic } from '@laravel/echo-vue';
 import { useIntervalFn, useNow } from '@vueuse/core';
-import { ChevronLeft, ChevronRight, Pause, Play, RotateCcw } from 'lucide-vue-next';
-import { computed, onMounted, ref, watch } from 'vue';
+import { ChevronLeft, ChevronRight, Coffee, Footprints, Hand, Pause, PersonStanding, Play, RotateCcw } from 'lucide-vue-next';
+import { computed, onMounted, ref, watch, type Component } from 'vue';
 
 const props = defineProps<{
     token: string;
@@ -25,9 +26,9 @@ useEchoPublic<RemoteState>(`remote.${props.token}.state`, '.remote.state', (payl
     error.value = null;
 });
 
-async function send(action: RemoteAction, value?: number) {
+async function send(action: RemoteAction, value?: number, pose?: CharacterPose) {
     try {
-        await sendCommand(props.token, action, value);
+        await sendCommand(props.token, action, value, pose);
         error.value = null;
     } catch (caught) {
         error.value =
@@ -55,6 +56,13 @@ const remaining = computed(() => {
 const display = computed(() => `${String(Math.floor(remaining.value / 60)).padStart(2, '0')}:${String(remaining.value % 60).padStart(2, '0')}`);
 const nearEnd = computed(() => !!state.value && remaining.value > 0 && remaining.value <= 60 && state.value.timer.total > 60);
 const timeOut = computed(() => !!state.value && state.value.timer.timeOut && remaining.value === 0);
+
+const poses: { pose: CharacterPose; label: string; icon: Component }[] = [
+    { pose: 'idle', label: 'Stehen', icon: PersonStanding },
+    { pose: 'go', label: 'Gehen', icon: Footprints },
+    { pose: 'pause', label: 'Pause', icon: Coffee },
+    { pose: 'greet', label: 'Grüssen', icon: Hand },
+];
 
 const board = computed(() => state.value?.board ?? null);
 const meta = computed(() =>
@@ -134,6 +142,33 @@ const meta = computed(() =>
                 <Button variant="secondary" size="icon" :disabled="!state" aria-label="Zurücksetzen" @click="send('timer-reset')"
                     ><RotateCcw
                 /></Button>
+            </div>
+        </section>
+
+        <section v-if="state && state.characters.length" class="space-y-3" aria-label="Figur" data-test="character">
+            <h2 class="text-sm font-medium">Figur</h2>
+            <div class="flex flex-wrap gap-2" role="group" aria-label="Figur wählen">
+                <Button
+                    v-for="character in state.characters"
+                    :key="character.id"
+                    size="sm"
+                    :variant="state.character_id === character.id ? 'default' : 'secondary'"
+                    :aria-pressed="state.character_id === character.id"
+                    @click="send('character-select', character.id)"
+                >
+                    {{ character.name }}
+                </Button>
+            </div>
+            <div class="grid grid-cols-2 gap-2" role="group" aria-label="Aktion">
+                <Button
+                    v-for="item in poses"
+                    :key="item.pose"
+                    :variant="state.character_pose === item.pose ? 'default' : 'secondary'"
+                    :aria-pressed="state.character_pose === item.pose"
+                    @click="send('character-pose', undefined, item.pose)"
+                >
+                    <component :is="item.icon" />{{ item.label }}
+                </Button>
             </div>
         </section>
 

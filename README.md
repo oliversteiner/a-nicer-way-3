@@ -47,7 +47,7 @@ Characters (figures that stand in the scene) are managed on the same page: each 
 
 Each board takes images for the three parallax layers (PNG, JPG, WebP or SVG, up to 5 MB). They (and the character images) are stored on the private `local` disk and served through `/assets/{id}` and `/character-images/{id}`, only for published journeys (or to the owner) and with a sandboxing `Content-Security-Policy`, so a script inside an uploaded SVG cannot run.
 
-Remote control: the «Fernsteuerung» panel shows a QR code and a link. Open it on a phone to switch boards (back, next, jump to a board), start, pause and reset the timer and read the notes of the current board. The presentation publishes its state through Reverb; the phone sends commands to the server, which checks them and broadcasts them to the presentation. A pairing is a random token that expires after 12 hours; «Neu koppeln» ends the old one. Reverb needs a long-running process (`php artisan reverb:start`) and, behind a proxy, a secure WebSocket (`wss`) route; see the Reverb docs.
+Remote control: the «Fernsteuerung» panel shows a QR code and a link. Open it on a phone to switch boards (back, next, jump to a board), start, pause and reset the timer, pick the character and its action (standing, walking, break, greeting) and read the notes of the current board. The presentation publishes its state through Reverb; the phone sends commands to the server, which checks them and broadcasts them to the presentation. A pairing is a random token that expires after 12 hours; «Neu koppeln» ends the old one. Reverb needs a long-running process (`php artisan reverb:start`) and, behind a proxy, a secure WebSocket (`wss`) route; see the Reverb docs.
 
 The toolbar in the status bar opens movable panels: board list (jump to a board), notes of the current board, phone simulator, console (log of board changes and timer events) and a countdown timer for the talk.
 
@@ -76,7 +76,7 @@ npm run format:check
 
 ## Ideas
 
-- Control the character from the remote control.
+- Fix the starter kit's `vue-tsc` setup so the type check can run.
 
 ## License
 

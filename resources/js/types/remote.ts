@@ -1,9 +1,13 @@
-export type RemoteAction = 'next' | 'previous' | 'goto' | 'timer-toggle' | 'timer-reset' | 'hello';
+import type { CharacterPose } from '@/types/presentation';
+
+export type RemoteAction = 'next' | 'previous' | 'goto' | 'timer-toggle' | 'timer-reset' | 'character-select' | 'character-pose' | 'hello';
 
 export interface RemoteCommand {
     action: RemoteAction;
-    /** Board position (1-based) for `goto`. */
+    /** Board position (1-based) for `goto`, character id for `character-select`. */
     value: number | null;
+    /** Pose for `character-pose`. */
+    pose?: CharacterPose | null;
 }
 
 export interface RemoteTimerState {
@@ -28,6 +32,9 @@ export interface RemoteState {
     index: number;
     count: number;
     board: RemoteBoardState | null;
+    characters: { id: number; name: string }[];
+    character_id: number | null;
+    character_pose: CharacterPose;
     timer: RemoteTimerState;
 }
 
