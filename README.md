@@ -57,6 +57,7 @@ The toolbar in the status bar opens movable panels: board list (jump to a board)
 npm run build         # page tests need the Vite manifest in public/build
 php artisan test      # tests run on in-memory SQLite
 npm run test:js       # Vitest: stores, countdown, panels
+npm run types         # vue-tsc type check
 npm run lint
 npm run format:check
 ```
@@ -73,10 +74,6 @@ npm run format:check
 - v3: Laravel + Vue 3 + Inertia (this repository)
 - v2: TypeScript, Bootstrap 4, Express.js, Socket.io, PouchDB
 - v1: jQuery, Bootstrap 3, Express.js, Socket.io, PouchDB
-
-## Ideas
-
-- Fix the starter kit's `vue-tsc` setup so the type check can run.
 
 ## License
 
