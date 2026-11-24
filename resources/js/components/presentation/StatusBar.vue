@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Board } from '@/types/presentation';
 import { Button } from '@/components/ui/button';
 import { usePresentationStore } from '@/stores/presentation';
+import type { Board } from '@/types/presentation';
 import { Clock, MapPin, Moon, Smartphone, Sun } from 'lucide-vue-next';
 import { computed } from 'vue';
 

@@ -60,5 +60,13 @@ export const usePresentationStore = defineStore('presentation', () => {
         toggleSimulator,
         boardCount,
         currentIndex,
-        scrollTarget, isFirst, isLast, setBoardCount, setCurrent, goTo, goToNext, goToPrevious };
+        scrollTarget,
+        isFirst,
+        isLast,
+        setBoardCount,
+        setCurrent,
+        goTo,
+        goToNext,
+        goToPrevious,
+    };
 });

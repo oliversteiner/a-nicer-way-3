@@ -56,7 +56,11 @@ useEventListener(window, 'keydown', (event: KeyboardEvent) => {
 </script>
 
 <template>
-    <div ref="scroller" class="relative flex-1 snap-x snap-mandatory overflow-x-auto overflow-y-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" data-test="scroller">
+    <div
+        ref="scroller"
+        class="relative flex-1 snap-x snap-mandatory overflow-x-auto overflow-y-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        data-test="scroller"
+    >
         <div class="relative h-full" :style="{ width: `${trackWidth}px` }">
             <div class="sticky left-0 h-full overflow-hidden" :style="{ width: `${viewport}px` }">
                 <div

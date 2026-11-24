@@ -29,21 +29,37 @@ const screenText = computed(() => {
         <div
             ref="panel"
             class="fixed z-50 flex flex-col overflow-hidden rounded-[2rem] border-4 bg-card shadow-xl"
-            
             :style="[style, { height: `${simulatorHeight}px`, width: `${width}px` }]"
             data-test="simulator"
         >
-            <div ref="handle" class="flex cursor-move items-center justify-between gap-1 border-b bg-muted px-2 py-1 select-none">
+            <div ref="handle" class="flex cursor-move select-none items-center justify-between gap-1 border-b bg-muted px-2 py-1">
                 <div class="flex">
-                    <Button variant="ghost" size="icon" class="size-6" aria-label="Kleiner" @click="store.simulatorSmaller()"><Minus class="size-3" /></Button>
-                    <Button variant="ghost" size="icon" class="size-6" aria-label="Grösser" @click="store.simulatorBigger()"><Plus class="size-3" /></Button>
+                    <Button variant="ghost" size="icon" class="size-6" aria-label="Kleiner" @click="store.simulatorSmaller()"
+                        ><Minus class="size-3"
+                    /></Button>
+                    <Button variant="ghost" size="icon" class="size-6" aria-label="Grösser" @click="store.simulatorBigger()"
+                        ><Plus class="size-3"
+                    /></Button>
                 </div>
                 <div class="flex">
-                    <Button variant="ghost" size="icon" class="size-6" aria-label="Solo" :aria-pressed="simulatorSolo" @click="simulatorSolo = !simulatorSolo"><Presentation class="size-3" /></Button>
-                    <Button variant="ghost" size="icon" class="size-6" aria-label="Schliessen" @click="store.toggleSimulator()"><X class="size-3" /></Button>
+                    <Button
+                        variant="ghost"
+                        size="icon"
+                        class="size-6"
+                        aria-label="Solo"
+                        :aria-pressed="simulatorSolo"
+                        @click="simulatorSolo = !simulatorSolo"
+                        ><Presentation class="size-3"
+                    /></Button>
+                    <Button variant="ghost" size="icon" class="size-6" aria-label="Schliessen" @click="store.toggleSimulator()"
+                        ><X class="size-3"
+                    /></Button>
                 </div>
             </div>
-            <div class="flex flex-1 items-center justify-center bg-background p-3 text-center text-sm text-muted-foreground" data-test="simulator-screen">
+            <div
+                class="flex flex-1 items-center justify-center bg-background p-3 text-center text-sm text-muted-foreground"
+                data-test="simulator-screen"
+            >
                 <template v-if="board">
                     <div>
                         <p class="font-medium text-foreground">{{ board.title }}</p>
