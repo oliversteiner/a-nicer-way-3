@@ -1,62 +1,69 @@
-# A Nicer Way 3
-A User Journey Presentation App with Smartphone Simulator
+# A Nicer Way
 
+A user journey presentation app with a smartphone simulator.
 
-## Demo
+A journey is told as a row of boards (two days, hour by hour). Scrolling sideways moves through the boards with a three-layer parallax background. A status bar shows day, time, place, mood and day/night, and a phone simulator shows what the app does at that point of the story.
 
-## Background History
+## Stack
 
-## Version History
- - v 3
-    - Vue 2 - Typescript 3.8 - Tailwind (SCSS) - Laravel 6 - MySQL
-    - Rewrite of A-Nicer-Way 2 with Vue and Laravel
- - v 2
-    - Typescript - Bootstrap 4 (SCSS) - Express.js - Socket.io - PouchDB
- - v 1
-    - Lot of JQuery - Bootstrap 3 (SCSS) - Express.js - Socket.io - PouchDB
+- Laravel 12, PHP 8.2+, MariaDB / MySQL
+- Inertia 2, Vue 3 (`<script setup>`, TypeScript), Pinia
+- Vite 6, Tailwind CSS 3.4, shadcn-vue components, lucide icons, VueUse
+- Pest / PHPUnit for tests
 
-## Resources
- - vue.js : https://vuejs.org/
- - tailwindcss : https://tailwindcss.com/
- - vue-tailwind : https://vue-tailwind.com/
- - Laravel : https://laravel.com/
- - Typescript and Laravel: https://sebastiandedeyne.com/typescript-with-laravel-mix/
- - https://github.com/alefesouza/laravel-vue-boilerplate
+## Setup
 
-## Server Requirements
- - PHP >= 7.2.0
- - MariaDB / MySQL / PostGreSQL
- - (See https://laravel.com/docs/6.x )
-
-## Install
-#### Laravel
- - Install Laravel 
- - Set Up Laravel
-
-#### Get the Code
- - Clone Repository
-
-#### Install all the Stuff!
- - Install Globaly:
- 
-   `npm install -g browser-sync`
-   
- - Run Installers in App directory
- 
- ``` 
-composer update
-npm install 
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
 ```
 
-#### Set up Database
-- Generate new Database with name like 'a-nicer-way'
-- Update your .env with new DB-name and password
+Create the database named in `.env` (default `a-nicer-way`), then:
 
+```bash
+php artisan migrate --seed
+```
 
+The seeder adds a demo journey with 11 boards.
 
-## Run the Application
-   `npm install -g browser-sync`
+## Run
 
-## Run Tests
-https://tighten.co/blog/its-time-to-start-testing-your-vue-components-getting-started-with-jest
-https://dev.to/nesterow/testable-code-with-vuejs-and-typescript-4eeb
+```bash
+composer dev      # server, queue, logs and Vite
+# or
+php artisan serve
+npm run dev
+```
+
+Open `/journeys/demo`. Use the left and right arrow keys, the arrow buttons or the dots to move between boards.
+
+## Checks
+
+```bash
+php artisan test      # tests run on in-memory SQLite
+npm run lint
+npm run format:check
+npm run build
+```
+
+## Data model
+
+- `journeys`: title, unique slug, description, `published_at` (drafts are visible to the owner only)
+- `boards`: ordered by `position`; day, time, location, night flag, mood, `simulator_state` (JSON, e.g. `{"screen": "Fahrplan"}`)
+- `board_assets`: images for the parallax layers `back`, `middle` and `front`
+
+## History
+
+- v3: Laravel + Vue 3 + Inertia (this repository)
+- v2: TypeScript, Bootstrap 4, Express.js, Socket.io, PouchDB
+- v1: jQuery, Bootstrap 3, Express.js, Socket.io, PouchDB
+
+## Not ported yet
+
+Board list, console and edit panels, the timer, the character layer and the remote control from the earlier Vue 2 version (`anw-presentation`).
+
+## License
+
+See [LICENSE](LICENSE).
