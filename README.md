@@ -39,10 +39,13 @@ npm run dev
 
 Open `/journeys/demo`. Use the left and right arrow keys, the arrow buttons or the dots to move between boards.
 
+The toolbar in the status bar opens movable panels: board list (jump to a board), notes of the current board, phone simulator, console (log of board changes and timer events) and a countdown timer for the talk.
+
 ## Checks
 
 ```bash
 php artisan test      # tests run on in-memory SQLite
+npm run test:js       # Vitest: stores, countdown, panels
 npm run lint
 npm run format:check
 npm run build
@@ -62,7 +65,7 @@ npm run build
 
 ## Not ported yet
 
-Board list, console and edit panels, the timer, the character layer and the remote control from the earlier Vue 2 version (`anw-presentation`).
+The character layer and the remote control from the earlier Vue 2 version (`anw-presentation`).
 
 ## License
 
