@@ -29,6 +29,10 @@ class JourneySeeder extends Seeder
             ],
         );
 
+        foreach (['Kevin', 'Gruppe', 'Bus'] as $index => $name) {
+            $journey->characters()->updateOrCreate(['position' => $index + 1], ['name' => $name]);
+        }
+
         foreach ($this->boards() as $position => $board) {
             Board::query()->updateOrCreate(
                 ['journey_id' => $journey->id, 'position' => $position],

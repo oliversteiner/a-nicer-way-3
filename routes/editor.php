@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Editor\BoardAssetController;
 use App\Http\Controllers\Editor\BoardController;
+use App\Http\Controllers\Editor\CharacterController;
+use App\Http\Controllers\Editor\CharacterImageController;
 use App\Http\Controllers\Editor\JourneyController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +20,10 @@ Route::middleware('auth')->prefix('editor')->name('editor.')->group(function () 
     Route::delete('boards/{board}', [BoardController::class, 'destroy'])->name('boards.destroy');
     Route::post('boards/{board}/assets', [BoardAssetController::class, 'store'])->name('assets.store');
     Route::delete('assets/{asset}', [BoardAssetController::class, 'destroy'])->name('assets.destroy');
+    Route::post('journeys/{journey:id}/characters', [CharacterController::class, 'store'])->name('characters.store');
+    Route::put('characters/{character}', [CharacterController::class, 'update'])->name('characters.update');
+    Route::delete('characters/{character}', [CharacterController::class, 'destroy'])->name('characters.destroy');
+    Route::post('characters/{character}/images', [CharacterImageController::class, 'store'])->name('character-images.store');
+    Route::delete('character-images/{image}', [CharacterImageController::class, 'destroy'])->name('character-images.destroy');
     Route::post('boards/{board}/move', [BoardController::class, 'move'])->name('boards.move');
 });

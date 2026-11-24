@@ -23,7 +23,10 @@ class Journey extends Model
 
     protected static function booted(): void
     {
-        static::deleting(fn (self $journey) => $journey->boards->each->delete());
+        static::deleting(function (self $journey) {
+            $journey->boards->each->delete();
+            $journey->characters->each->delete();
+        });
     }
 
     public function user(): BelongsTo
@@ -34,6 +37,11 @@ class Journey extends Model
     public function boards(): HasMany
     {
         return $this->hasMany(Board::class)->orderBy('position');
+    }
+
+    public function characters(): HasMany
+    {
+        return $this->hasMany(Character::class)->orderBy('position');
     }
 
     /** Renumber the boards 1..n in their current order (e.g. after a delete). */

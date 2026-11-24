@@ -15,13 +15,21 @@ class JourneyController extends Controller
 
         abort_unless($isOwner || ($journey->published_at?->isPast() ?? false), 404);
 
-        $journey->load('boards.assets');
+        $journey->load('boards.assets', 'characters.images');
 
         return Inertia::render('Journeys/Show', [
             'journey' => [
                 'title' => $journey->title,
                 'slug' => $journey->slug,
                 'description' => $journey->description,
+                'characters' => $journey->characters->map(fn ($character) => [
+                    'id' => $character->id,
+                    'name' => $character->name,
+                    // Pose => image URL; poses without an image are left out.
+                    'images' => (object) $character->images->mapWithKeys(fn ($image) => [
+                        $image->pose->value => route('character-images.show', $image),
+                    ])->all(),
+                ])->values(),
                 'boards' => $journey->boards->map(fn ($board) => [
                     'id' => $board->id,
                     'position' => $board->position,
