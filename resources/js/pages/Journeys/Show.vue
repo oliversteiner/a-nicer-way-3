@@ -4,14 +4,16 @@ import BoardNav from '@/components/presentation/BoardNav.vue';
 import BoardScroller from '@/components/presentation/BoardScroller.vue';
 import ConsolePanel from '@/components/presentation/ConsolePanel.vue';
 import NotesPanel from '@/components/presentation/NotesPanel.vue';
+import RemotePanel from '@/components/presentation/RemotePanel.vue';
 import SimulatorPanel from '@/components/presentation/SimulatorPanel.vue';
 import StatusBar from '@/components/presentation/StatusBar.vue';
 import TimerPanel from '@/components/presentation/TimerPanel.vue';
 import PresentationLayout from '@/layouts/PresentationLayout.vue';
 import { usePresentationStore } from '@/stores/presentation';
+import { useRemoteStore } from '@/stores/remote';
 import type { Journey } from '@/types/presentation';
 import { Head } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, onMounted, watch } from 'vue';
 
 const props = defineProps<{ journey: Journey }>();
 
@@ -19,6 +21,35 @@ const store = usePresentationStore();
 store.setBoardCount(props.journey.boards.length);
 
 const currentBoard = computed(() => props.journey.boards[store.currentIndex]);
+
+// Remote control: tell it what the presentation shows whenever that changes.
+const remote = useRemoteStore();
+remote.setStateSource(() => {
+    const board = currentBoard.value;
+
+    return {
+        index: store.currentIndex,
+        count: props.journey.boards.length,
+        board: board
+            ? { position: board.position, title: board.title, notes: board.notes, day: board.day, time: board.time, location: board.location }
+            : null,
+        timer: {
+            remaining: store.timerRemaining,
+            total: store.timerTotal,
+            running: store.timerRunning,
+            nearEnd: store.timerNearEnd,
+            timeOut: store.timerTimeOut,
+        },
+    };
+});
+
+watch(
+    // While the timer runs the remote counts down itself; only changes are sent.
+    () => [store.currentIndex, store.timerRunning, store.timerTotal, store.timerRunning ? null : store.timerRemaining, store.timerTimeOut],
+    () => remote.publish(),
+);
+
+onMounted(() => remote.resume(props.journey.slug));
 </script>
 
 <template>
@@ -32,5 +63,6 @@ const currentBoard = computed(() => props.journey.boards[store.currentIndex]);
         <NotesPanel v-if="store.panels.notes" :board="currentBoard" />
         <ConsolePanel v-if="store.panels.console" />
         <TimerPanel v-if="store.panels.timer" />
+        <RemotePanel v-if="store.panels.remote" :slug="journey.slug" />
     </PresentationLayout>
 </template>

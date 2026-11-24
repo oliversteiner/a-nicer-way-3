@@ -9,7 +9,7 @@ describe('presentation store', () => {
     it('starts with only the simulator open', () => {
         const store = usePresentationStore();
 
-        expect(store.panels).toEqual({ simulator: true, boards: false, notes: false, console: false, timer: false });
+        expect(store.panels).toEqual({ simulator: true, boards: false, notes: false, console: false, timer: false, remote: false });
     });
 
     it('toggles panels and logs the change', () => {

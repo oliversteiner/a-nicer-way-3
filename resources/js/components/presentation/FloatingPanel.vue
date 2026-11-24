@@ -4,7 +4,7 @@ import { useDraggable, useElementSize } from '@vueuse/core';
 import { ChevronDown, ChevronUp, X } from 'lucide-vue-next';
 import { onMounted, ref, watch, type Component } from 'vue';
 
-export type PanelAnchor = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-right';
+export type PanelAnchor = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right';
 
 // The panel last touched sits on top of the others.
 let topZ = 50;
