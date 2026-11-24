@@ -10,7 +10,7 @@ import { computed, ref } from 'vue';
 const props = defineProps<{ board: Board | undefined }>();
 
 const store = usePresentationStore();
-const { simulatorOpen, simulatorSolo, simulatorHeight } = storeToRefs(store);
+const { panels, simulatorSolo, simulatorHeight } = storeToRefs(store);
 
 const panel = ref<HTMLElement | null>(null);
 const handle = ref<HTMLElement | null>(null);
@@ -24,7 +24,7 @@ const screenText = computed(() => {
 </script>
 
 <template>
-    <template v-if="simulatorOpen">
+    <template v-if="panels.simulator">
         <div v-if="simulatorSolo" class="fixed inset-0 z-40 bg-background/80" data-test="simulator-backdrop" @click="simulatorSolo = false" />
         <div
             ref="panel"
@@ -51,7 +51,7 @@ const screenText = computed(() => {
                         @click="simulatorSolo = !simulatorSolo"
                         ><Presentation class="size-3"
                     /></Button>
-                    <Button variant="ghost" size="icon" class="size-6" aria-label="Schliessen" @click="store.toggleSimulator()"
+                    <Button variant="ghost" size="icon" class="size-6" aria-label="Schliessen" @click="store.closePanel('simulator')"
                         ><X class="size-3"
                     /></Button>
                 </div>

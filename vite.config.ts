@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import vue from '@vitejs/plugin-vue';
 import autoprefixer from 'autoprefixer';
 import laravel from 'laravel-vite-plugin';
@@ -29,5 +30,9 @@ export default defineConfig({
         postcss: {
             plugins: [tailwindcss, autoprefixer],
         },
+    },
+    test: {
+        environment: 'jsdom',
+        include: ['resources/js/**/*.test.ts'],
     },
 });

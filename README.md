@@ -43,11 +43,14 @@ Log in and open `/editor/journeys` (menu entry «Journeys») to create journeys,
 
 Each board takes images for the three parallax layers (PNG, JPG, WebP or SVG, up to 5 MB). They are stored on the private `local` disk and served through `/assets/{id}`, only for published journeys (or to the owner) and with a sandboxing `Content-Security-Policy`, so a script inside an uploaded SVG cannot run.
 
+The toolbar in the status bar opens movable panels: board list (jump to a board), notes of the current board, phone simulator, console (log of board changes and timer events) and a countdown timer for the talk.
+
 ## Checks
 
 ```bash
 npm run build         # page tests need the Vite manifest in public/build
 php artisan test      # tests run on in-memory SQLite
+npm run test:js       # Vitest: stores, countdown, panels
 npm run lint
 npm run format:check
 npm run build
@@ -67,7 +70,7 @@ npm run build
 
 ## Not ported yet
 
-Board list and console panels, the timer, the character layer and the remote control from the earlier Vue 2 version (`anw-presentation`).
+The character layer and the remote control from the earlier Vue 2 version (`anw-presentation`).
 
 ## License
 
