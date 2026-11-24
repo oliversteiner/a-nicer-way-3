@@ -5,6 +5,21 @@ export interface BoardAsset {
     url: string;
 }
 
+export type BackdropAlign = 'top' | 'center' | 'bottom';
+
+/** An image behind (or in front of) all boards, e.g. sky or mountains. */
+export interface Backdrop {
+    id: number;
+    layer: 'back' | 'front';
+    url: string;
+    /** Parallax speed: 1 moves with the boards, lower is slower. */
+    speed: number;
+    align: BackdropAlign;
+    /** Share of the stage height, in percent. */
+    height: number;
+    repeat: boolean;
+}
+
 export type CharacterPose = 'idle' | 'go' | 'pause' | 'greet';
 
 export interface Character {
@@ -33,6 +48,7 @@ export interface Journey {
     title: string;
     slug: string;
     description: string | null;
+    backdrops: Backdrop[];
     characters: Character[];
     boards: Board[];
 }

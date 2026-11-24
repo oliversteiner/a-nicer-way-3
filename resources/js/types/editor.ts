@@ -12,6 +12,16 @@ export interface EditorAsset {
     url: string;
 }
 
+export interface EditorBackdrop {
+    id: number;
+    layer: 'back' | 'front';
+    url: string;
+    speed: number;
+    align: 'top' | 'center' | 'bottom';
+    height: number;
+    repeat: boolean;
+}
+
 export interface EditorCharacterImage {
     id: number;
     pose: 'idle' | 'go' | 'pause' | 'greet';
@@ -45,6 +55,7 @@ export interface EditorJourney {
     slug: string;
     description: string | null;
     published: boolean;
+    backdrops: EditorBackdrop[];
     characters: EditorCharacter[];
     boards: EditorBoard[];
 }

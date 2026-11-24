@@ -26,6 +26,7 @@ class Journey extends Model
         static::deleting(function (self $journey) {
             $journey->boards->each->delete();
             $journey->characters->each->delete();
+            $journey->backdrops->each->delete();
         });
     }
 
@@ -37,6 +38,11 @@ class Journey extends Model
     public function boards(): HasMany
     {
         return $this->hasMany(Board::class)->orderBy('position');
+    }
+
+    public function backdrops(): HasMany
+    {
+        return $this->hasMany(JourneyBackdrop::class)->orderBy('position');
     }
 
     public function characters(): HasMany

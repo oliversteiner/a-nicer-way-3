@@ -15,13 +15,22 @@ class JourneyController extends Controller
 
         abort_unless($isOwner || ($journey->published_at?->isPast() ?? false), 404);
 
-        $journey->load('boards.assets', 'characters.images');
+        $journey->load('boards.assets', 'characters.images', 'backdrops');
 
         return Inertia::render('Journeys/Show', [
             'journey' => [
                 'title' => $journey->title,
                 'slug' => $journey->slug,
                 'description' => $journey->description,
+                'backdrops' => $journey->backdrops->map(fn ($backdrop) => [
+                    'id' => $backdrop->id,
+                    'layer' => $backdrop->layer->value,
+                    'url' => route('backdrops.show', $backdrop),
+                    'speed' => $backdrop->speed,
+                    'align' => $backdrop->align->value,
+                    'height' => $backdrop->height,
+                    'repeat' => $backdrop->repeat,
+                ])->values(),
                 'characters' => $journey->characters->map(fn ($character) => [
                     'id' => $character->id,
                     'name' => $character->name,

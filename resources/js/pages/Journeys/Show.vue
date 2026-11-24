@@ -69,7 +69,7 @@ onMounted(() => remote.resume(props.journey.slug));
     <Head :title="journey.title" />
     <PresentationLayout>
         <StatusBar :title="journey.title" :board="currentBoard" />
-        <BoardScroller :boards="journey.boards" :characters="journey.characters" />
+        <BoardScroller :boards="journey.boards" :characters="journey.characters" :backdrops="journey.backdrops" />
         <BoardNav />
         <SimulatorPanel :board="currentBoard" />
         <BoardListPanel v-if="store.panels.boards" :boards="journey.boards" />
