@@ -185,7 +185,7 @@ const summary = (board: EditorBoard) => [`Day ${board.day}`, board.time, board.l
                 </DialogHeader>
                 <BoardForm
                     v-if="editing === 'new' || editingBoard"
-                    :key="editing === 'new' ? 'new' : editing"
+                    :key="editing ?? 'none'"
                     :journey-id="journey.id"
                     :board="editingBoard"
                     @saved="editing = null"

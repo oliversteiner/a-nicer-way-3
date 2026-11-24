@@ -19,6 +19,7 @@ Laravel 12, Inertia 2, Vue 3 mit TypeScript, Pinia, Vite, Tailwind 3.4 und shadc
 npm run build   # zuerst: die Seiten-Tests brauchen public/build
 php artisan test
 npm run test:js   # Vitest (Stores, Countdown, Panels)
+npm run types     # vue-tsc (Typencheck)
 npm run lint
 npm run format:check
 ```
@@ -40,5 +41,4 @@ Oberflächen zusätzlich im Browser prüfen (`/journeys/demo`). Tests allein rei
 
 ## Bekannte Lücken
 
-- `npx vue-tsc --noEmit` scheitert am Starter-Kit (`vue/tsx` in `tsconfig.json`).
 - Alles aus `anw-presentation` ist portiert.

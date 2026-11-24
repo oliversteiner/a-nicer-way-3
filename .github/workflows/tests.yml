@@ -52,6 +52,9 @@ jobs:
       - name: Build Assets
         run: npm run build
 
+      - name: Type Check
+        run: npm run types
+
       - name: Frontend Tests
         run: npm run test:js
 
