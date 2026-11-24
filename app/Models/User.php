@@ -47,6 +47,12 @@ class User extends Authenticatable
         ];
     }
 
+    protected static function booted(): void
+    {
+        // The database cascade does not fire model events, so remove journeys (and their files) here.
+        static::deleting(fn (self $user) => $user->journeys->each->delete());
+    }
+
     public function journeys(): HasMany
     {
         return $this->hasMany(Journey::class);

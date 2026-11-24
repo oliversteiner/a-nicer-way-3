@@ -27,6 +27,12 @@ class Board extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        // The database cascade does not fire model events, so remove the files here.
+        static::deleting(fn (self $board) => $board->assets->each->delete());
+    }
+
     public function journey(): BelongsTo
     {
         return $this->belongsTo(Journey::class);

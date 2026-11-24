@@ -52,7 +52,7 @@ class JourneyController extends Controller
     {
         Gate::authorize('manage', $journey);
 
-        $journey->load('boards');
+        $journey->load('boards.assets');
 
         return Inertia::render('Journeys/Edit', [
             'journey' => [
@@ -73,6 +73,11 @@ class JourneyController extends Controller
                     'is_night' => $board->is_night,
                     'mood' => $board->mood,
                     'simulator_screen' => $board->simulator_state['screen'] ?? null,
+                    'assets' => $board->assets->map(fn ($asset) => [
+                        'id' => $asset->id,
+                        'layer' => $asset->layer->value,
+                        'url' => route('assets.show', $asset),
+                    ])->values(),
                 ])->values(),
             ],
         ]);

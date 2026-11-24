@@ -36,7 +36,7 @@ class JourneyController extends Controller
                     'simulator_state' => $board->simulator_state,
                     'assets' => $board->assets->map(fn ($asset) => [
                         'layer' => $asset->layer->value,
-                        'path' => $asset->path,
+                        'url' => route('assets.show', $asset),
                     ])->values(),
                 ])->values(),
             ],

@@ -21,6 +21,11 @@ class Journey extends Model
         return ['published_at' => 'datetime'];
     }
 
+    protected static function booted(): void
+    {
+        static::deleting(fn (self $journey) => $journey->boards->each->delete());
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
